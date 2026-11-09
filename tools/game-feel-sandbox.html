@@ -1,0 +1,1359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A free game feel tool from Avalon Partner and Captain Amado. Play, change one setting, and save what works. Works offline.">
+<title>Game Feel Sandbox | Avalon Game Making Tool Kit</title>
+<style>
+:root{--green:#123d2d;--green2:#245c43;--mint:#d9ebdd;--ink:#172c23;--muted:#56685e;--line:#d4ddd5;--paper:#f5f7f3;--white:#fff;--red:#803b45;--redlight:#f4e9eb;--gold:#cdb77a;--shadow:0 8px 28px #123d2d09;--radius:16px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);font-size:15px;line-height:1.55}
+*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #b88c2f;outline-offset:3px}button,input,select,textarea{border-radius:9px}input,select,textarea{width:100%;border:1px solid #b9c8bc;padding:10px 12px;background:white;color:var(--ink);min-width:0}textarea{min-height:88px;resize:vertical}input[type=range]{padding:0;accent-color:var(--green);min-height:28px}input[type=checkbox]{width:18px;height:18px;accent-color:var(--green);flex-shrink:0}input[type=number]{font-variant-numeric:tabular-nums}input:invalid:not(:placeholder-shown){border-color:var(--red)}label{font-size:.87rem;font-weight:650;display:block}label small,.hint{font-size:.79rem;font-weight:400;color:var(--muted)}p{margin:0 0 14px}h1,h2,h3,h4{line-height:1.16;letter-spacing:-.025em;margin:0 0 12px}h1{font-size:clamp(2.1rem,3.8vw,3.5rem);font-weight:680}h2{font-size:1.8rem}h3{font-size:1.18rem}h4{font-size:1rem}a{color:var(--green2);text-underline-offset:3px}small{font-size:.79rem}hr{border:0;border-top:1px solid var(--line);margin:22px 0}[hidden]{display:none!important}svg{display:block}ul,ol{padding-left:22px}li{margin:6px 0}
+.compact-presenter,.mobile-save-status{display:none}.skip{position:fixed;top:-100px;left:12px;z-index:100;background:white;padding:12px}.skip:focus{top:12px}.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px max(24px,calc((100vw - 1480px)/2));border-bottom:1px solid var(--line);background:#f8faf6;box-shadow:0 3px 18px #172c2305}.brand{display:flex;align-items:center;gap:12px}.brandmark{background:var(--green);color:#ecf3e9;width:40px;height:44px;display:grid;place-items:center;border-radius:11px}.brand-title{font-size:1.05rem;line-height:1.1;letter-spacing:-.02em;font-weight:750}.brand-caption{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}.presenter{font-size:.8rem;color:var(--muted);padding-left:20px;border-left:1px solid var(--line)}.presenter strong{display:block;color:var(--ink)}.top-actions{display:flex;gap:10px;align-items:center}.btn{min-height:42px;padding:10px 16px;border:1px solid var(--line);font-size:.84rem;font-weight:650;background:white;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}.btn:hover{background:#edf3eb;border-color:#adc2b1}.btn.primary{background:var(--green);color:white;border-color:var(--green)}.btn.primary:hover{background:var(--green2)}.btn.light{background:#e7f0e5;color:var(--green);border-color:#e7f0e5}.btn.ghost{background:transparent}.btn.danger{color:var(--red);border-color:#d6b5b9}.btn.small{min-height:34px;padding:6px 11px;font-size:.76rem}.dot{width:7px;height:7px;background:#3c7f56;border-radius:50%;display:inline-block}.status{font-size:.74rem;color:var(--muted);max-width:260px}.status.error{color:var(--red)}.status.warn{color:#815a13}
+.app{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;max-width:1480px;margin:auto;padding:30px 24px 48px}.rail{align-self:start;position:sticky;top:104px}.eyebrow{font-size:.69rem;font-weight:750;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}.rail-project{padding:0 12px 20px;border-bottom:1px solid var(--line);margin-bottom:20px}.project-name{font-size:.93rem;font-weight:700;overflow-wrap:anywhere}.rail-sub{font-size:.75rem;color:var(--muted)}.nav{display:flex;flex-direction:column;gap:5px}.nav button{display:flex;align-items:center;gap:12px;text-align:left;background:transparent;border:0;padding:12px;color:var(--muted);font-size:.88rem;font-weight:560;min-height:44px}.nav button span:first-child{font-size:.65rem;letter-spacing:.08em;width:18px;color:#5a6b5f}.nav button.active{background:#e1ebe0;color:var(--green);font-weight:730}.rail-note{font-size:.73rem;color:var(--muted);margin:30px 12px 0;padding-top:20px;border-top:1px solid var(--line)}.rail-note strong{color:var(--green);display:block;margin-bottom:6px}main{min-width:0}.page{min-width:0}.page-head{display:flex;justify-content:space-between;align-items:start;gap:20px;margin:5px 0 24px}.page-head p{color:var(--muted);max-width:660px;font-size:.92rem}.badge{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--line);border-radius:6px;padding:5px 8px;white-space:nowrap;font-weight:700;background:white}.badge.green{background:#e8f1e6;color:var(--green);border-color:#bfd6c2}.badge.red{background:var(--redlight);color:var(--red);border-color:#dfc2c6}
+.hero{background:var(--green);color:#f8fbf5;border-radius:22px;padding:42px;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;position:relative;overflow:hidden}.hero .eyebrow{color:#b6d2bb}.hero h1{max-width:650px}.hero p{color:#c4d9c8;max-width:510px;font-size:1rem}.hero .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.hero .btn.ghost{border-color:#60836b;color:#ecf4e8}.hero .btn.ghost:hover{background:#214f37}.hero-art{width:100%;height:auto;opacity:.94}.hero-note{margin-top:20px;color:#afc7b3;font-size:.76rem}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:30px 0 16px;gap:12px}.section-heading h3{margin:0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:white;box-shadow:var(--shadow)}.card p{font-size:.87rem;color:var(--muted)}.card-number{font-size:.7rem;letter-spacing:.15em;color:var(--green2);font-weight:700;margin-bottom:15px}.card .mini-art{height:46px;display:flex;align-items:center;gap:8px;margin-bottom:18px}.mini-block{width:26px;height:26px;border-radius:6px;background:var(--green2)}.mini-line{height:2px;width:65px;background:#a6bca7;position:relative}.mini-line:after{content:"";position:absolute;right:0;top:-3px;width:8px;height:8px;border-right:2px solid #a6bca7;border-top:2px solid #a6bca7;transform:rotate(45deg)}.mini-jump{width:80px;height:36px;border:2px dashed #79967f;border-bottom:0;border-radius:60% 60% 0 0}.mini-ring{width:35px;height:35px;border:2px solid #b8cdbc;border-radius:50%;display:grid;place-items:center}.mini-ring:after{content:"";width:15px;height:15px;background:var(--red);border-radius:3px}.intro-footer{margin-top:20px;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:.8rem}
+.panel,.note-card,.protocol-status,.callout{overflow-wrap:anywhere}.panel{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-bottom:18px;min-width:0}.panel.soft{background:#eef4ec}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.panel-title h3{margin:0}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.stack{display:grid;gap:15px}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.field{display:grid;gap:6px;align-content:start}.field.full{grid-column:1/-1}.switch{display:flex;align-items:center;gap:8px;font-size:.81rem;font-weight:550}.callout{border-left:3px solid #7d9d80;background:#eff4ed;padding:13px 16px;font-size:.82rem;color:#385140;border-radius:0 8px 8px 0}.callout.warn{border-color:#aa8543;background:#f8f2e5;color:#6e5426}.callout.error{border-color:var(--red);background:var(--redlight);color:var(--red)}.muted{color:var(--muted)}.fine{font-size:.77rem;color:var(--muted)}.break{overflow-wrap:anywhere}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.8rem}.guide{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;background:#e7efe2;border:1px solid #bfd1b9;border-radius:14px;padding:16px 20px;margin-bottom:20px}.guide-step{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:white;font-size:.85rem;font-weight:700}.guide h3{font-size:.94rem;margin-bottom:4px}.guide p{margin:0;font-size:.79rem;color:#52674e}.guide .row{justify-content:flex-end}
+.demo-tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:20px;overflow-x:auto}.demo-tabs button{border:1px solid transparent;background:transparent;white-space:nowrap;padding:9px 14px;font-size:.84rem;color:var(--muted);min-height:42px}.demo-tabs button.active{color:white;background:var(--green);font-weight:650}.work-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}.lab{min-width:0}.lab-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}.scene-note{font-size:.84rem;color:var(--muted);margin-bottom:14px;min-height:40px}.lanes{display:grid;grid-template-columns:1fr 1fr;gap:12px}.lanes.solo{grid-template-columns:1fr}.lane{border:1px solid #c9d9cb;border-radius:13px;overflow:hidden;background:white;min-width:0}.lane.b{border-color:#d8c3c6}.lane-head{padding:11px 13px;background:#e7f0e5;display:flex;align-items:center;justify-content:space-between;gap:8px}.lane.b .lane-head{background:#f2e9eb}.lane-label{font-size:.73rem;font-weight:750;letter-spacing:.08em}.lane-value{font-size:.7rem;color:#47604a;text-align:right;overflow-wrap:anywhere}.lane.b .lane-value{color:#774b52}.lane canvas{display:block;width:100%;height:auto;background:#e7eee6;aspect-ratio:560/340}.lane-foot{font-size:.71rem;padding:9px 12px;display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums;color:var(--muted);min-height:37px}.play-surface{border-radius:16px;outline-offset:4px}.play-surface:focus-visible{outline:3px solid #b88c2f}.controls-touch{margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1.5fr 1.5fr;gap:9px}.touch-btn{border:1px solid #bbcdbd;background:white;color:var(--green);min-height:48px;font-size:.84rem;font-weight:680;touch-action:none;user-select:none}.touch-btn:active,.touch-btn.held{background:var(--green);color:white}.key-hint{font-size:.73rem;color:var(--muted);margin:11px 0 16px}.key{font-family:inherit;padding:1px 5px;border:1px solid #c6d2c6;border-bottom-width:2px;border-radius:4px;background:white;font-size:.68rem}.live-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}.stat{padding:12px;background:#eaf0e7;border:1px solid #dbe3d7;border-radius:10px;min-width:0}.stat small{display:block;font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}.stat strong{display:block;font-size:1rem;letter-spacing:-.02em;margin:4px 0 0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.stat span{font-size:.7rem;color:var(--muted)}.protocol-status{padding:12px 15px;background:white;border:1px solid var(--line);border-radius:10px;font-size:.81rem;margin:12px 0;min-height:50px}.protocol-status strong{color:var(--green)}.param-panel{padding:18px}.param-header{font-size:.69rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}.param{padding:14px 0;border-bottom:1px solid #e2e8df}.param:last-child{border:0;padding-bottom:0}.param:first-child{padding-top:0}.param-top{display:flex;align-items:baseline;gap:8px;justify-content:space-between}.param label{font-size:.79rem}.param .numberline{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:12px;align-items:center;margin-top:9px}.param input[type=number]{padding:5px 7px;font-size:.8rem;min-height:36px}.param .unit{font-size:.64rem;color:var(--muted);text-align:right;white-space:nowrap}.param details{margin-top:8px}.param summary{font-size:.73rem;color:var(--green2);cursor:pointer}.param details p{font-size:.75rem;color:var(--muted);margin:7px 0 0}.compare-panel{margin-top:18px;padding:18px}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.compare-panel .field label{font-size:.76rem}.compare-panel .fine{margin:12px 0 0}.preset-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.preset-row select{font-size:.82rem;padding:8px}.disclosure summary{font-size:.84rem;font-weight:650;cursor:pointer}.disclosure>div{margin-top:15px}.recommendations{display:grid;gap:8px;margin-top:12px}.recommendation{font-size:.78rem;padding:11px 13px;border:1px solid #d7e2d4;border-radius:9px;background:#f2f6ee}.recommendation strong{display:block;color:var(--green);font-size:.73rem;margin-bottom:4px}
+.interface-demo{min-height:260px;padding:24px 16px;background:radial-gradient(circle at 20% 10%,#e0ebdc,#f4f6ef);display:flex;align-items:center;justify-content:center;overflow:hidden}.ui-card{background:white;border:1px solid #cfdbcc;padding:20px 16px;border-radius:13px;width:100%;max-width:250px;box-shadow:0 10px 30px #183d2910;text-align:center;transform:translateY(0);transition-property:transform,box-shadow,border-color;transition-duration:180ms;transition-timing-function:ease-out}.ui-card h4{margin:10px 0 5px;font-size:1rem}.ui-card p{font-size:.74rem;color:var(--muted);margin-bottom:14px}.ui-gem{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:#e1eddc;margin:auto;transform:rotate(-7deg);font-size:1.25rem;color:var(--green);font-weight:650}.ui-action{width:100%;background:var(--green);color:white;min-height:40px;border:0;padding:8px 10px;font-size:.78rem;font-weight:650;transition-property:background,transform;transition-duration:180ms}.ui-action.confirmed{background:#427549}.ui-feedback{font-size:.68rem;margin-top:11px;color:var(--muted);min-height:21px}.ui-demo-status{font-size:.68rem;color:#53705a;margin-top:8px}.note-list{display:grid;gap:12px}.note-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:18px}.note-card p{white-space:pre-wrap;font-size:.85rem}.note-card .note-meta{font-size:.72rem;color:var(--muted);margin:8px 0}.note-actions{display:flex;gap:8px;margin-top:14px}.empty{padding:30px 22px;text-align:center;color:var(--muted);border:1px dashed #b8c9b8;border-radius:14px;font-size:.86rem}.note-count{font-variant-numeric:tabular-nums;font-size:.78rem;color:var(--muted)}.search-row{display:grid;grid-template-columns:1fr 180px;gap:10px;margin-bottom:18px}.check-group{display:flex;flex-wrap:wrap;gap:15px;padding:8px 0}.table-wrap{overflow-x:auto;max-width:100%}table{border-collapse:collapse;width:100%;font-size:.79rem;text-align:left}th{background:#eef3ea;color:#38523c;font-size:.7rem;letter-spacing:.03em}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}td:nth-child(2),td:nth-child(3){font-variant-numeric:tabular-nums}tr.changed td{background:#fcf5f5}.report-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;font-size:.85rem;margin:16px 0}.report-meta div{overflow-wrap:anywhere}.report-meta strong{display:block;font-size:.72rem;color:var(--muted)}.export-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.export-card{border:1px solid var(--line);border-radius:12px;padding:18px}.export-card h4{font-size:.92rem}.export-card p{font-size:.8rem;color:var(--muted);min-height:60px}.source-card{padding:17px 0;border-bottom:1px solid var(--line)}.source-card:last-child{border:0}.source-card h4{margin-bottom:6px}.source-card a{font-size:.86rem;overflow-wrap:anywhere}.source-card p{font-size:.82rem;color:var(--muted);margin:8px 0}.source-card small{color:var(--green2)}.schema{white-space:pre-wrap;overflow-wrap:anywhere;background:#eff3eb;border:1px solid #d8e2d4;padding:16px;font-size:.72rem;border-radius:10px;max-height:360px;overflow:auto}.footer{margin:32px 0 0;border-top:1px solid var(--line);padding-top:16px;font-size:.73rem;color:var(--muted);display:flex;justify-content:space-between;gap:14px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:60;max-width:min(650px,calc(100vw - 32px));padding:12px 18px;border:1px solid #50765a;background:#153e2a;color:white;box-shadow:0 8px 30px #0002;border-radius:11px;font-size:.83rem}.toast.error{background:#743640;border-color:#9a5560}dialog{border:1px solid var(--line);border-radius:18px;padding:28px;max-width:720px;width:calc(100% - 30px);max-height:85vh;color:var(--ink);background:var(--paper);box-shadow:0 25px 80px #0004}dialog::backdrop{background:#10281bd1}.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-top:22px}.dialog-actions .backup{margin-right:auto}.dialog-body{font-size:.85rem}.dialog-body .table-wrap{max-height:190px;overflow:auto}.dialog-body .identity{font-size:.73rem;overflow-wrap:anywhere}.noscript{background:#ffe6e8;padding:30px;margin:25px}.print-only{display:none}body.reduced .ui-card,body.reduced .ui-action{transition-duration:0ms!important;transform:none!important}body.reduced *{scroll-behavior:auto!important}
+@media(min-width:1500px){.work-grid{grid-template-columns:minmax(0,1fr) 310px}.hero{padding:48px}}
+@media(max-width:1220px){.compact-presenter{display:inline}.wide-caption{display:none}.app{grid-template-columns:175px minmax(0,1fr);gap:22px}.work-grid{grid-template-columns:1fr}.param-panel{margin-top:0}.param-controls{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.param:first-child{padding-top:14px}.hero{padding:32px}.hero-art{max-width:320px}.cards{gap:12px}.card{padding:18px}.presenter{display:none}}
+@media(max-width:850px){.mobile-save-status{display:block;font-size:.74rem;color:var(--muted);margin:-12px 4px 22px}.mobile-save-status.error{color:var(--red)}.app{display:block;padding:16px}.rail{position:static}.rail-project,.rail-note{display:none}.nav{flex-direction:row;overflow:auto;border-bottom:1px solid var(--line);margin-bottom:24px;padding-bottom:12px;gap:4px}.nav button{white-space:nowrap;padding:10px 12px}.nav button span:first-child{display:none}.topbar{padding:12px 16px;gap:12px}.top-actions .status{display:none}.hero{grid-template-columns:1.4fr .8fr;padding:28px}.hero-art{min-width:0}.cards{grid-template-columns:repeat(3,1fr)}.page-head{margin-top:4px}.guide{gap:12px}.guide .row{flex-direction:column}.guide .btn{min-height:34px;padding:6px 10px}.panel{padding:18px}}
+@media(max-width:590px){:root{font-size:14px}.brandmark{width:33px;height:37px;border-radius:9px}.brand-title{font-size:.88rem}.brand-caption{font-size:.51rem}.topbar{padding:10px 12px;gap:8px}.top-actions{gap:5px}.top-actions .btn{min-height:37px;font-size:.72rem;padding:8px 10px}.top-actions .import-top{display:none}.app{padding:14px 12px 32px}.hero{display:block;padding:27px 23px;border-radius:16px}.hero h1{font-size:2.5rem;max-width:380px}.hero-art{position:absolute;width:180px;right:-40px;bottom:-55px;opacity:.13;pointer-events:none}.hero p{position:relative;z-index:1}.hero-actions{position:relative;z-index:1}.cards{grid-template-columns:1fr}.card{display:grid;grid-template-columns:56px 1fr;gap:0 14px}.card .mini-art{grid-row:1/5;height:100%;margin:0;overflow:hidden}.card-number{margin:0 0 8px}.card h3{font-size:1.15rem}.card p{margin-bottom:0}.two,.three,.compare-grid,.export-grid{grid-template-columns:1fr}.intro-footer,.footer{display:block}.intro-footer>*,.footer>*{margin-bottom:8px}.page-head{display:block;margin-bottom:20px}.page-head>.badge{display:inline-flex;margin-bottom:4px}.page-head h2{font-size:1.8rem}.guide{grid-template-columns:30px 1fr;padding:14px;align-items:start}.guide-step{width:30px;height:30px}.guide .row{grid-column:2;flex-direction:row;justify-content:flex-start}.demo-tabs{gap:2px}.demo-tabs button{padding:8px 11px}.lanes{grid-template-columns:1fr}.lane canvas{max-height:240px;object-fit:contain}.param-controls{grid-template-columns:1fr}.live-stats{gap:6px}.stat{padding:10px 8px}.stat strong{font-size:.92rem}.stat small{font-size:.6rem}.controls-touch{position:static;background:#f5f7f3;padding:7px;border:1px solid #c9d7c5;border-radius:12px}.touch-btn{min-height:48px;font-size:.78rem}.report-meta{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.interface-demo{min-height:260px}.ui-card{max-width:250px}.panel{padding:16px}.dialog-actions{justify-content:stretch}.dialog-actions .btn{flex:1 1 auto}.dialog-actions .backup{margin-right:0}.status{max-width:none}}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}}
+@media print{@page{size:A4;margin:15mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#65725f}}html,body{background:white!important;color:#162b1f!important;font-size:10pt}.skip,.topbar,.rail,.mobile-save-status,.footer,.toast,dialog,.no-print,.page:not(#page-tuning){display:none!important}.app{display:block;padding:0;margin:0;max-width:none}main{width:100%}#page-tuning{display:block!important}.print-only{display:block}.panel{box-shadow:none;border:0;border-radius:0;padding:0;margin:12px 0;break-inside:auto}.page-head{margin:0}.page-head h2{font-size:22pt}.page-head p{font-size:10pt}.report-meta{grid-template-columns:1fr 1fr}table{font-size:8pt;table-layout:fixed}th,td{padding:6px 7px;overflow-wrap:anywhere}#page-tuning table th:nth-child(1){width:20%}#page-tuning table th:nth-child(2),#page-tuning table th:nth-child(3){width:9%}#page-tuning table th:nth-child(4){width:16%}#page-tuning table th:nth-child(5){width:46%}thead{display:table-header-group}tr{break-inside:avoid}.table-wrap{overflow:visible}h3,h4{break-after:avoid}.note-card,.callout{break-inside:avoid}.note-card{box-shadow:none}.schema{max-height:none;overflow:visible}a{color:inherit;text-decoration:none}.badge{font-size:7pt}#reportEvidence{break-inside:avoid}.report-print-sources{font-size:7pt;overflow-wrap:anywhere}.two{display:block}.note-actions{display:none!important}}
+/* Readability: keep help text at 13px or larger for young readers. */
+@media screen{.fine,.hint,label small,.key-hint,.rail-note,.stat span,.param details p,.param summary,.recommendation,.recommendation strong,.ui-card p,.ui-feedback,.ui-demo-status,.note-card .note-meta,.footer,.guide p,.export-card p,.callout,.status,.mobile-save-status,.hero-note,.lane-foot{font-size:.87rem}.stat small,.param .unit,.lane-value,.card-number,.eyebrow,.badge,th{font-size:.8rem}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the tool</a>
+<noscript><div class="noscript">This tool needs JavaScript to run. Turn on JavaScript, then open this page again. You do not need the internet.</div></noscript>
+<header class="topbar">
+ <div class="brand">
+  <div class="brandmark" aria-hidden="true"><svg width="24" height="27" viewBox="0 0 24 27" fill="none"><path d="M3 24V12L12 3L21 12V24H16V15H8V24H3Z" stroke="currentColor" stroke-width="1.5"/><path d="M7 8V2M17 8V2M1 25H23" stroke="currentColor" stroke-width="1.5"/></svg></div>
+  <div><div class="brand-title">AVALON PARTNER</div><div class="brand-caption"><span class="wide-caption">Free creator tool</span><span class="compact-presenter">Captain Amado</span></div></div>
+  <div class="presenter"><strong>Captain Amado</strong>Streamer &amp; community presenter</div>
+ </div>
+ <div class="top-actions"><span class="status" id="saveStatus" role="status">Checking browser save...</span><button class="btn import-top" data-action="import" title="A project file is the .json file this tool saves for you.">Open project file</button><button class="btn primary" data-action="export" title="Keep a copy of your work on your computer.">Save project file</button></div>
+</header>
+<div class="app">
+ <aside class="rail" aria-label="Workspace navigation">
+  <div class="rail-project"><div class="eyebrow">Current project</div><div class="project-name" id="railName">Untitled project</div><div class="rail-sub" id="railVersion">No game version yet</div></div>
+  <nav class="nav" aria-label="Main sections">
+   <button data-page="start" class="active"><span>01</span><span>Start here</span></button>
+   <button data-page="workshop"><span>02</span><span>Play &amp; compare</span></button>
+   <button data-page="notes"><span>03</span><span>Test notes</span></button>
+   <button data-page="tuning"><span>04</span><span>Tuning sheet</span></button>
+   <button data-page="project"><span>05</span><span>Save &amp; open files</span></button>
+   <button data-page="sources"><span>06</span><span>How it works</span></button>
+  </nav>
+  <div class="mobile-save-status" id="mobileSaveStatus" role="status">Checking browser save...</div>
+  <div class="rail-note"><strong>Small changes. Clear choices.</strong>Play the same moves, change one setting, and write down what helped.<p style="margin-top:16px">Free. No sign-up.<br>Works offline.</p><span>Captain Amado<br>Streamer &amp; community presenter</span></div>
+ </aside>
+ <main id="main" tabindex="-1">
+  <section class="page" id="page-start" aria-labelledby="startTitle">
+   <div class="hero">
+    <div><div class="eyebrow">Game Feel Sandbox / 1.0</div><h1 id="startTitle">Make the small things feel right.</h1><p>Move. Jump. Hit a target. See how one small change can make your game feel different. Then save your settings and why you picked them.</p><div class="hero-actions"><button class="btn light" id="startGuide">Start the guided tour</button><button class="btn ghost" id="continueWork">Go to my current project</button></div><div class="hero-note">For Roblox creators and game designers. Free. No sign-up. Works offline.</div></div>
+    <svg class="hero-art" aria-hidden="true" viewBox="0 0 380 350" fill="none">
+     <circle cx="210" cy="150" r="136" stroke="#517759" stroke-width="1"/><circle cx="210" cy="150" r="108" stroke="#315e3f" stroke-width="1"/><path d="M15 294H154V252H235V284H365" stroke="#7d9d79" stroke-width="2"/><path d="M64 262C115 90 243 105 288 237" stroke="#c8c999" stroke-width="2" stroke-dasharray="5 7"/><rect x="65" y="237" width="40" height="40" rx="9" fill="#cfe2ba"/><rect x="260" y="211" width="40" height="40" rx="9" fill="#ad7781"/><path d="M76 251H80M88 251H92" stroke="#254630" stroke-width="3"/><path d="M271 225H275M283 225H287" stroke="#f1e2dd" stroke-width="3"/><circle cx="83" cy="188" r="18" fill="#274f36"/><text x="83" y="193" text-anchor="middle" fill="#dce8cf" font-family="system-ui" font-size="13">A</text><circle cx="280" cy="164" r="18" fill="#573f3d"/><text x="280" y="169" text-anchor="middle" fill="#f0dce0" font-family="system-ui" font-size="13">B</text><path d="M140 314H233M140 325H198" stroke="#507955" stroke-width="3"/><circle cx="320" cy="60" r="4" fill="#d4bd7e"/>
+    </svg>
+   </div>
+   <div class="section-heading"><h3>How to use this tool</h3><span class="badge">5 demos to try</span></div>
+   <div class="cards">
+    <article class="card"><div class="mini-art" aria-hidden="true"><div class="mini-block"></div><div class="mini-line"></div></div><div class="card-number">STEP 1 / PLAY</div><h3>Play a demo</h3><p>Try moving, jumping, hitting, the camera, and menus. Use your keyboard or touch.</p></article>
+    <article class="card"><div class="mini-art" aria-hidden="true"><div class="mini-jump"></div></div><div class="card-number">STEP 2 / COMPARE</div><h3>Change one thing</h3><p>A is your starting setup. B changes just one setting. Play the same moves on both and compare.</p></article>
+    <article class="card"><div class="mini-art" aria-hidden="true"><div class="mini-ring"></div></div><div class="card-number">STEP 3 / SAVE</div><h3>Write down why</h3><p>Note which one felt better and why. Then click Save project file to keep your work.</p></article>
+   </div>
+   <div class="section-heading"><h3>Pick how to start</h3></div>
+   <div class="two">
+    <div class="panel"><h3>Try an example</h3><p class="muted">Open the Pocket Platformer example. Its goal is already written for you. It has no made-up test results.</p><button class="btn primary" id="loadExample">Try an example</button></div>
+    <div class="panel"><h3>Start from scratch</h3><p class="muted">Start with a blank project and no notes. Safe starting settings keep every demo playable.</p><button class="btn" id="newProject">Start from scratch</button></div>
+   </div>
+   <div class="callout">Your work saves in this browser, but it can get erased. Click <strong>Save project file</strong> to keep a copy on your computer. A project file is the .json file this tool saves for you. You can open your newest project file in other Avalon tools too.</div>
+   <div class="intro-footer"><span>All shapes and sounds are made by this tool. Every example value is shown.</span> <span>Official guides checked 21 Oct 2026.</span></div>
+  </section>
+  <section class="page" id="page-workshop" hidden aria-labelledby="workshopTitle">
+   <div class="page-head"><div><div class="eyebrow">Play &amp; compare</div><h2 id="workshopTitle">Feel the difference.</h2><p>B changes just one setting. Everything else stays the same for A and B, including your moves.</p></div><span class="badge green">Live demo</span></div>
+   <div class="guide" id="guide" hidden><div class="guide-step" id="guideStep">1</div><div><h3 id="guideTitle"></h3><p id="guideText"></p></div><div class="row"><button class="btn small" id="guideSkip">Close guide</button><button class="btn primary small" id="guideNext">Next step</button></div></div>
+   <div class="demo-tabs" id="demoTabs" role="tablist" aria-label="Demos"></div>
+   <div class="work-grid" id="demo-panel" role="tabpanel" aria-labelledby="demo-tab-movement">
+    <div class="lab">
+     <div class="lab-toolbar"><div class="row"><button class="btn primary" id="runTrial" title="Sends the exact same moves to A and B so you can compare them.">Play the same moves</button><button class="btn" id="resetSim" title="Puts A and B back at the start.">Restart A and B</button><button class="btn small" id="pauseSim" aria-pressed="false">Pause</button></div><span class="badge" id="sceneBadge">Movement</span></div>
+     <p class="scene-note" id="sceneNote"></p>
+     <div id="playSurface" class="play-surface" tabindex="0" role="group" aria-label="Play area for A and B. Arrow keys or A and D move. Space jumps. X hits the target. R restarts. P pauses." aria-describedby="keyHint">
+      <div class="lanes" id="lanes">
+       <article class="lane"><div class="lane-head"><span class="lane-label" title="A is your starting setup.">A / YOUR SETUP</span><span class="lane-value" id="valueA"></span></div><canvas id="canvasA" width="1120" height="680" aria-label="A, your setup. Live numbers are shown below."></canvas><div class="interface-demo" id="interfaceA" hidden><div class="ui-card" id="uiCardA"><div class="ui-gem" aria-hidden="true">A</div><h4>Trail complete</h4><p>A small reward, with a clear response.</p><button class="ui-action" id="uiActionA">Collect token</button><div class="ui-feedback" id="uiFeedbackA" role="status">Ready for input</div><div class="ui-demo-status" id="uiStatusA">0 tokens collected</div></div></div><div class="lane-foot"><span id="footA">Standing still</span><span id="timeA">0.00 s</span></div></article>
+       <article class="lane b" id="laneB"><div class="lane-head"><span class="lane-label" title="B is the same as A, except for one setting.">B / ONE CHANGE</span><span class="lane-value" id="valueB"></span></div><canvas id="canvasB" width="1120" height="680" aria-label="B, with one change. Live numbers are shown below."></canvas><div class="interface-demo" id="interfaceB" hidden><div class="ui-card" id="uiCardB"><div class="ui-gem" aria-hidden="true">B</div><h4>Trail complete</h4><p>A small reward, with a clear response.</p><button class="ui-action" id="uiActionB">Collect token</button><div class="ui-feedback" id="uiFeedbackB" role="status">Ready for input</div><div class="ui-demo-status" id="uiStatusB">0 tokens collected</div></div></div><div class="lane-foot"><span id="footB">Standing still</span><span id="timeB">0.00 s</span></div></article>
+      </div>
+     </div>
+     <div class="controls-touch" id="touchControls"><button class="touch-btn" id="leftBtn" aria-label="Move left">Left</button><button class="touch-btn" id="rightBtn" aria-label="Move right">Right</button><button class="touch-btn" id="jumpBtn">Jump</button><button class="touch-btn" id="hitBtn">Hit</button></div>
+     <p class="key-hint" id="keyHint">Click the scene first. Then move with <kbd class="key">A</kbd> <kbd class="key">D</kbd> or the arrow keys. <kbd class="key">Space</kbd> jumps, <kbd class="key">X</kbd> hits, <kbd class="key">R</kbd> restarts, <kbd class="key">P</kbd> pauses. The buttons work with touch too.</p>
+     <div class="row" id="specialTests"><button class="btn small" id="bufferTest" hidden title="Presses jump just before landing. A remembers the press. B does not.">Test an early jump press</button><button class="btn small" id="edgeTest" hidden title="Presses jump just after running off a ledge. This is called coyote time.">Test a late jump off a ledge</button><button class="btn small" id="shakeTest" hidden>Test shake vs. no shake</button><button class="btn small" id="hoverTest" hidden>Show hover on both cards</button></div>
+     <div class="protocol-status" id="protocolStatus" role="status">Free play. Click Restart A and B any time to line them up again.</div>
+     <div class="live-stats" id="liveStats"><div class="stat"><small id="metric1Label">A speed</small><strong id="metric1">0 px/s</strong><span id="metric1Hint">Measured in this demo</span></div><div class="stat"><small id="metric2Label">B speed</small><strong id="metric2">0 px/s</strong><span id="metric2Hint">Measured in this demo</span></div><div class="stat"><small id="metric3Label">Top speed (both)</small><strong id="metric3">260 px/s</strong><span id="metric3Hint">Your setting</span></div></div>
+     <div class="panel compare-panel"><div class="panel-title"><h3>Compare A and B</h3><label class="switch"><input type="checkbox" id="compareEnabled" checked> Show B</label></div><div class="compare-grid"><div class="field"><label for="compareParam">The one setting B changes</label><select id="compareParam"></select></div><div class="field"><label for="compareValue" id="compareValueLabel">B value</label><div id="compareValueHost"></div></div></div><p class="fine" id="compareExplanation"></p><div class="row" style="margin-top:14px"><button class="btn small" id="recordComparison">Write a note about this</button><button class="btn small" id="promoteB" title="Copies the B value into A, so B becomes your new setup.">Make B the new A</button></div></div>
+     <details class="panel disclosure"><summary>Math and tips</summary><div><p class="fine">These are simple math results and tips. They do not score your game. What you see testers do matters more.</p><div class="recommendations" id="recommendations"></div></div></details>
+     <div class="panel"><div class="panel-title"><h3>Comfort &amp; sound</h3><span class="badge">You choose</span></div><div class="row"><label class="switch"><input type="checkbox" id="reducedMotion"> Less motion (no shake or extra effects)</label><label class="switch"><input type="checkbox" id="muteAudio" checked> Mute</label><button class="btn small" id="enableAudio">Turn on sound</button></div><div class="two" style="margin-top:14px"><div class="field"><label for="volume">Volume <span id="volumeLabel">25%</span></label><input type="range" id="volume" min="0" max="1" step=".05" value=".25"></div><div class="field"><label for="audioLane">Play sound from</label><select id="audioLane"><option value="A">A only</option><option value="B">B only</option></select></div></div><p class="fine" id="audioStatus" style="margin:12px 0 0">Sound is off until you turn it on. A label on screen shows when a sound would play, even when muted.</p><p class="fine" style="margin:7px 0 0">Less motion turns off shake, sparkles, and menu movement. The player, the camera, and the hit signal still work. You can always pause.</p><p class="fine" style="margin:7px 0 0">New projects use the motion setting on your device. A project you open uses the motion setting it saved. Use the checkbox to change it.</p></div>
+    </div>
+    <aside aria-label="Tuning controls">
+     <div class="panel param-panel"><div class="panel-title"><h3>Change A</h3><button class="btn small" id="resetGroup" title="Puts these settings back to their starting values.">Reset settings</button></div><p class="fine">A is your setup. Each change restarts A and B. Every number has a lowest and highest value. px means demo pixels. ms means milliseconds (1,000 ms = 1 second).</p><div class="param-controls" id="paramControls"></div></div>
+     <div class="panel param-panel"><div class="param-header">Example setups</div><div class="preset-row"><select id="presetSelect" aria-label="Example setup"><option value="precise">Precise platforming</option><option value="weighty">Heavy movement</option><option value="restrained">Soft hits</option><option value="gentle">Calm menus</option></select><button class="btn small" id="applyPreset">Use this setup</button></div><p class="fine" id="presetDescription" style="margin:12px 0"></p><details class="disclosure"><summary>See every value in this setup</summary><div class="table-wrap"><table><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody id="presetValues"></tbody></table></div></details><p class="fine" style="margin:12px 0 0">These examples were made for this tool. They are not Roblox defaults or rules. Using one replaces all A settings. B still changes only its one setting.</p></div>
+     <div class="panel soft"><h3>What should this feel like?</h3><label class="field" for="intent"><span class="fine">Your goal for how it feels</span><textarea id="intent" maxlength="4000" placeholder="Example: Quick to start, easy to stop, forgiving near ledges."></textarea></label><p class="fine" style="margin:10px 0 0">Decide how it should feel before you judge the numbers.</p></div>
+    </aside>
+   </div>
+  </section>
+  <section class="page" id="page-notes" hidden aria-labelledby="notesTitle">
+   <div class="page-head"><div><div class="eyebrow">What you saw</div><h2 id="notesTitle">Keep the why.</h2><p>Write what happened, who tried it, and why one setting fit your goal. Leave blank anything you do not know.</p></div><span class="badge" id="noteCounter">0 notes</span></div>
+   <div class="panel"><div class="panel-title"><h3 id="noteFormTitle">New note</h3><span class="badge" id="noteCaptureBadge">Current settings saved</span></div><div class="callout" id="noteContext"></div><form id="noteForm" style="margin-top:18px"><div class="two"><div class="field"><label for="notePreferred">Which one felt better?</label><select id="notePreferred"><option value="">Not picked yet</option><option value="A">A</option><option value="B">B</option><option value="No preference">No preference</option></select></div><div class="field"><label for="noteTester">Who tested it? <small>Optional</small></label><input id="noteTester" maxlength="300" placeholder="Example: My friend Sam, first try"></div><div class="field full"><label for="noteConditions">How you tested <small>Device, controls, what they did, how many tries</small></label><textarea id="noteConditions" maxlength="4000" placeholder="Example: Keyboard, same moves, three tries."></textarea></div><div class="field"><label for="noteObservation">What you saw <small>What really happened?</small></label><textarea id="noteObservation" maxlength="4000" placeholder="Write what the player did or said."></textarea></div><div class="field"><label for="noteReason">Why you picked it <small>How does it fit your goal?</small></label><textarea id="noteReason" maxlength="4000" placeholder="Explain how your pick fits your goal."></textarea></div></div><div class="row" style="margin-top:18px"><button class="btn primary" type="submit" id="saveNote">Save note</button><button class="btn" type="button" id="cancelNote">Clear the form</button></div><p class="fine" style="margin:12px 0 0">Saving a note also saves all A and B settings and your goal. Editing a note keeps the settings it first saved.</p></form></div>
+   <div class="section-heading"><h3>Your notes</h3><button class="btn small" id="exportNotes" title="A CSV file opens in a spreadsheet app.">Save notes as a spreadsheet (CSV)</button></div><div class="search-row"><input id="noteSearch" type="search" aria-label="Search notes" placeholder="Search your notes"><select id="noteFilter" aria-label="Filter notes by demo"><option value="">All demos</option><option value="movement">Movement</option><option value="jumping">Jumping</option><option value="impact">Impact</option><option value="camera">Camera</option><option value="interface">Interface</option></select></div><div id="notesList" class="note-list"></div>
+  </section>
+  <section class="page" id="page-tuning" hidden aria-labelledby="tuningTitle">
+   <div class="page-head"><div><div class="eyebrow">Avalon Partner / Captain Amado</div><h2 id="tuningTitle">Game feel tuning sheet</h2><p>All your settings in one place, to use when you build and playtest your game. Playtest means letting people try it. Your game engine may use different units, so test the numbers there.</p></div><div class="row no-print"><button class="btn primary" id="printReport">Print or save as PDF</button><button class="btn" id="exportBrief">Save a text summary</button></div></div>
+   <div class="panel"><h3 id="reportName">Untitled project</h3><div class="report-meta" id="reportMeta"></div><div class="callout"><strong>Your goal for how it feels</strong><p id="reportIntent" style="margin:7px 0 0;white-space:pre-wrap"></p></div></div>
+   <div class="panel"><div class="panel-title"><h3>All settings</h3><span class="badge" id="reportComparison"></span></div><p class="fine">px means demo pixels on a 560 × 340 play area, not the pixels on your screen. The red row shows the one setting B changes.</p><div class="table-wrap"><table><thead><tr><th>Setting</th><th>A</th><th>B</th><th>Unit</th><th>How it works</th></tr></thead><tbody id="tuningRows"></tbody></table></div></div>
+   <div class="panel"><h3>What this demo keeps simple</h3><div id="reportAssumptions"></div></div>
+   <div class="panel"><h3>Notes for your game engine</h3><p class="no-print fine">Write how you will match these settings in your engine, like Roblox Studio. These notes save in your project file.</p><textarea id="mappingNotes" class="no-print" maxlength="8000" placeholder="Example: Pick how many pixels equal one stud. Then test top speed and jump height in Studio."></textarea><p id="reportMapping" style="white-space:pre-wrap;margin-top:10px"></p><p class="fine">Roblox measures length in studs. This tool does not turn pixels into studs for you. It does not include a Roblox script. The same numbers may feel different in your game, so test them there.</p></div>
+   <div class="panel"><h3>Your notes</h3><div id="reportNotes"></div></div>
+   <div class="panel" id="reportEvidence"><h3>Where the numbers come from</h3><p class="fine">Math results are estimates. Notes come from your own tests. Example setups and tips are only ideas. None of them is a fun score.</p><div id="reportSources" class="report-print-sources"></div><p class="fine">Avalon Partner / Captain Amado, streamer and community presenter. App v1.0. Official guides checked 21 Oct 2026. See the How it works page for full details.</p></div>
+  </section>
+  <section class="page" id="page-project" hidden aria-labelledby="projectTitle">
+   <div class="page-head"><div><div class="eyebrow">One project file</div><h2 id="projectTitle">Your project, kept together.</h2><p>Fill in your project info, save your project file, and open it in other Avalon tools.</p></div></div>
+   <div class="callout" style="margin-bottom:18px"><strong id="storageDetail">Checking browser save...</strong><p style="margin:6px 0 0">Your work saves in this browser, but it can get erased. Moving this page, switching browsers, or clearing browser data can lose it. Click Save project file often to keep a copy on your computer.</p><button class="btn small" id="retrySave" style="margin-top:10px">Try saving in this browser again</button></div>
+   <div class="panel"><div class="panel-title"><h3>Project info</h3><span class="badge">Skip what you do not know</span></div><div class="two" id="profileFields"></div><details class="disclosure" style="margin-top:20px"><summary>Project ID and tool data</summary><div><p class="fine">This ID (called a UUID) tells tools which project this is. Two projects with the same name are still different. Making a copy gives the copy a new ID.</p><p class="mono break" id="projectIdentity"></p><div class="table-wrap"><table><thead><tr><th>Tool data</th><th>Version</th><th>What happens</th></tr></thead><tbody id="moduleRows"></tbody></table></div></div></details><div class="row" style="margin-top:18px"><button class="btn" id="duplicateProject">Make a copy of this project</button><button class="btn" id="newProject2">Start from scratch</button></div></div>
+   <div class="panel"><h3>Save and open files</h3><p class="muted">Always bring your newest project file to the next tool. Opening a file replaces what is here, but you see a preview first. Files never sync or mix on their own.</p><div class="export-grid"><div class="export-card"><h4>Project file (.json)</h4><p>Everything in your project, plus any data from other Avalon tools. Use it as a backup, or to move your work to another tool.</p><button class="btn primary" data-action="export">Save project file</button></div><div class="export-card"><h4>Open a project file</h4><p>A project file is the .json file this tool saves for you. You see what will change first. Save a backup before you replace your work.</p><button class="btn" data-action="import">Open project file</button></div><div class="export-card"><h4>Settings list (.json)</h4><p>Your A and B settings with their units. It is only for reading. You cannot open it here as a project.</p><button class="btn" id="exportParameters">Save settings list</button></div><div class="export-card"><h4>Text summary (.txt)</h4><p>A plain text file with your project info, settings, notes, engine notes, and sources.</p><button class="btn" id="exportBrief2">Save text summary</button></div></div></div>
+   <div class="panel"><h3>Before sharing</h3><p class="fine">Your project file keeps data from every Avalon tool, even ones this tool cannot read. Check your notes before you share the file with anyone. Source links only open when you click them, and they need the internet.</p><div class="callout">Only a full project file (<span class="mono">avalon.creator-project</span>) can be opened here. The settings list and notes CSV are just for reading and sharing. You cannot open them back in.</div></div>
+  </section>
+  <section class="page" id="page-sources" hidden aria-labelledby="sourcesTitle">
+   <div class="page-head"><div><div class="eyebrow">Nothing hidden</div><h2 id="sourcesTitle">Know what the numbers mean.</h2><p>Every demo was built from scratch for this tool, using official guides. No borrowed game art. No secret scores.</p></div><span class="badge">Checked 21 Oct 2026</span></div>
+   <div class="panel"><h3>How this tool works</h3><div id="methodText"></div></div>
+   <div class="panel"><h3>Useful math</h3><div class="table-wrap"><table><thead><tr><th>What it finds</th><th>Math</th><th>When it works</th></tr></thead><tbody><tr><td>Time to top speed</td><td class="mono">maxSpeed / acceleration</td><td>Starting still, holding one direction, on flat ground.</td></tr><tr><td>Stopping distance</td><td class="mono">maxSpeed² / (2 × deceleration)</td><td>Moving at top speed, then letting go, on flat ground.</td></tr><tr><td>Best-case jump height</td><td class="mono">jumpImpulse² / (2 × gravity)</td><td>A smooth math guess. The demo moves in tiny steps, so it is a little different.</td></tr><tr><td>Time to the top of a jump</td><td class="mono">jumpImpulse / gravity</td><td>Nothing in the way and no hit pause.</td></tr><tr><td>Camera catch-up</td><td class="mono">1 - exp(-dt / followTime)</td><td>Follow time is in seconds. Zero snaps right away. After one follow time, the camera closes about 63% of the gap.</td></tr></tbody></table></div><p class="fine" style="margin:12px 0 0">All lowest and highest values, example setups, and tip triggers were picked for this tool. They are not limits from Roblox or any other engine.</p></div>
+   <div class="panel"><div class="panel-title"><h3>Official sources</h3><span class="badge">11 pages checked</span></div><p class="fine">These are the official guides we read to build this tool. Some use technical words. Links open only when you click them.</p><input type="search" id="sourceSearch" placeholder="Search sources: storage, audio, Roblox..." aria-label="Search official sources"><div id="sourceList"></div></div>
+   <div class="panel"><h3>About this version</h3><p class="fine">What this release includes and what it does not do.</p><div id="verificationLog"></div></div>
+   <details class="panel disclosure"><summary>For experts: project file format and limits</summary><div><p class="fine">You do not need this part to use the tool. It explains what is inside a project file, for people who build tools.</p><div id="schemaDocs"></div></div></details>
+   <div class="panel"><h3>Sharing &amp; credits</h3><p class="fine">Made for Avalon Partner and Captain Amado. The code, text, art, and sounds are all original. You can share this app under the license below. Linked guides still belong to their owners. This tool is not made by Roblox Corporation.</p><details class="disclosure"><summary>License</summary><div><p class="fine">Copyright (c) 2026 Joshua Amado. Free and source available under the AmadOpenSource License 1.0. Use it for anything, including paid work; what you make with it is yours. The tool itself may not be sold or turned into a paid product.</p></div></details></div>
+  </section>
+  <footer class="footer"><span>Made by <strong>Avalon Partner</strong> with Captain Amado. Free to use and share.</span> <span>Game Feel Sandbox 1.0 · Works offline · 21 Oct 2026</span></footer>
+ </main>
+</div>
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<dialog id="reviewDialog" aria-labelledby="reviewTitle"><h2 id="reviewTitle">Check before you replace</h2><div class="dialog-body" id="reviewBody"></div><div class="dialog-actions"><button class="btn backup" id="dialogBackup">Save a backup first</button><button class="btn" id="dialogCancel">Cancel, keep my work</button><button class="btn primary" id="dialogApply">Replace my work</button></div></dialog>
+<dialog id="confirmDialog" aria-labelledby="confirmTitle"><h2 id="confirmTitle">Confirm change</h2><p id="confirmText"></p><div class="dialog-actions"><button class="btn" id="confirmCancel">Cancel</button><button class="btn primary" id="confirmApply">Continue</button></div></dialog>
+<div id="toast" class="toast" hidden role="status"></div>
+<script>
+/* Avalon Game Feel Sandbox: dependency-free project-file contract, version 1. */
+(function (root) {
+  'use strict';
+  const TOOL_KEY = 'game_feel';
+  const LIMITS = Object.freeze({bytes:2097152, depth:32, nodes:100000, string:16000, key:120, array:5000, tools:50, notes:200});
+  const DEMOS = Object.freeze(['movement','jumping','impact','camera','interface']);
+  const PARAMS = Object.freeze([
+    {key:'maxSpeed',label:'Top speed',group:'movement',unit:'px/s',min:60,max:600,step:10,default:260},
+    {key:'acceleration',label:'Speed-up (acceleration)',group:'movement',unit:'px/s²',min:100,max:6000,step:100,default:1400},
+    {key:'deceleration',label:'Slow-down (deceleration)',group:'movement',unit:'px/s²',min:100,max:6000,step:100,default:1900},
+    {key:'turnResponse',label:'Turn speed',group:'movement',unit:'× acceleration',min:0.25,max:3,step:0.05,default:1.5},
+    {key:'jumpImpulse',label:'Jump power',group:'jumping',unit:'px/s upward',min:160,max:850,step:10,default:480},
+    {key:'gravity',label:'Gravity',group:'jumping',unit:'px/s²',min:300,max:3200,step:50,default:1400},
+    {key:'airControl',label:'Air control',group:'jumping',unit:'× ground response',min:0,max:1,step:0.05,default:0.6},
+    {key:'coyoteMs',label:'Late jump window (coyote time)',group:'jumping',unit:'ms',min:0,max:250,step:10,default:100},
+    {key:'bufferMs',label:'Early jump memory (buffer)',group:'jumping',unit:'ms',min:0,max:300,step:10,default:120},
+    {key:'hitPauseMs',label:'Hit pause',group:'impact',unit:'ms',min:0,max:120,step:5,default:50},
+    {key:'knockback',label:'Knockback (push)',group:'impact',unit:'px/s',min:0,max:500,step:10,default:180},
+    {key:'soundDelayMs',label:'Sound delay',group:'impact',unit:'ms after impact',min:0,max:250,step:10,default:0},
+    {key:'visualStrength',label:'Hit effect strength',group:'impact',unit:'0-1 intensity',min:0,max:1,step:0.05,default:0.6},
+    {key:'cameraFollowMs',label:'Camera follow time',group:'camera',unit:'ms time constant',min:0,max:900,step:10,default:180},
+    {key:'cameraShakePx',label:'Camera shake',group:'camera',unit:'px amplitude',min:0,max:8,step:0.5,default:0},
+    {key:'uiDurationMs',label:'Menu animation time',group:'interface',unit:'ms',min:0,max:700,step:10,default:180},
+    {key:'uiEasing',label:'Menu animation style (easing)',group:'interface',unit:'curve',options:['linear','easeOut','easeInOut','back'],default:'easeOut'},
+    {key:'uiHoverPx',label:'Hover lift',group:'interface',unit:'px',min:0,max:10,step:0.5,default:3},
+    {key:'uiConfirmMs',label:'Confirm message time',group:'interface',unit:'ms',min:200,max:1500,step:50,default:700}
+  ].map(p=>Object.freeze(p)));
+  const PARAM_BY_KEY = Object.freeze(Object.fromEntries(PARAMS.map(p=>[p.key,p])));
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const BAD_KEYS = new Set(['__proto__','prototype','constructor']);
+  function fail(path, message) { throw new Error(path + ': ' + message); }
+  function bytes(text) { return new TextEncoder().encode(text).length; }
+  function isObject(value) { return value!==null && typeof value==='object' && !Array.isArray(value); }
+  function object(value,path) { if(!isObject(value)) fail(path,'must be a JSON object.'); }
+  function own(value,key) { return Object.prototype.hasOwnProperty.call(value,key); }
+  function string(value,path,max=4000) { if(typeof value!=='string'||value.length>max) fail(path,'must be text of at most '+max+' characters.'); }
+  function boolean(value,path) { if(typeof value!=='boolean') fail(path,'must be true or false.'); }
+  function number(value,path,min,max,integer=false) { if(typeof value!=='number'||!Number.isFinite(value)||value<min||value>max||(integer&&!Number.isInteger(value))) fail(path,'must be '+(integer?'an integer':'a number')+' from '+min+' to '+max+'.'); }
+  function member(value,choices,path) { if(!choices.includes(value)) fail(path,'has an unsupported value.'); }
+  function uuidValue(value,path) { if(typeof value!=='string'||!UUID_RE.test(value)) fail(path,'must be a UUID.'); }
+  function iso(value,path) {
+    if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)||!Number.isFinite(Date.parse(value))) fail(path,'must be a valid ISO 8601 timestamp.');
+    const datePart=value.slice(0,10), day=Number(datePart.slice(8,10)), month=Number(datePart.slice(5,7)), year=Number(datePart.slice(0,4));
+    const leap=year%4===0&&(year%100!==0||year%400===0);
+    const monthDays=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31][month-1];
+    if(month<1||month>12||day<1||day>monthDays||Number(value.slice(11,13))>23||Number(value.slice(14,16))>59||Number(value.slice(17,19))>59) fail(path,'contains an invalid calendar date or time.');
+  }
+  function exactKeys(value,keys,path) {
+    object(value,path);
+    for(const key of keys) if(!own(value,key)) fail(path+'.'+key,'is required.');
+    for(const key of Object.keys(value)) if(!keys.includes(key)) fail(path+'.'+key,'is not supported by module version 1.');
+  }
+  function safeJSON(value) {
+    let nodes=0; const ancestors=new WeakSet();
+    function visit(item,path,depth) {
+      if(++nodes>LIMITS.nodes) fail(path,'file contains too many values.');
+      if(depth>LIMITS.depth) fail(path,'JSON nesting exceeds '+LIMITS.depth+' levels.');
+      if(item===null||typeof item==='boolean') return;
+      if(typeof item==='string') {if(item.length>LIMITS.string) fail(path,'text exceeds '+LIMITS.string+' characters.');return;}
+      if(typeof item==='number') {if(!Number.isFinite(item)) fail(path,'numbers must be finite.');return;}
+      if(typeof item!=='object') fail(path,'only JSON data is allowed.');
+      if(ancestors.has(item)) fail(path,'circular references are not JSON.');
+      const array=Array.isArray(item), proto=Object.getPrototypeOf(item);
+      if((array&&proto!==Array.prototype)||(!array&&proto!==Object.prototype&&proto!==null)) fail(path,'only plain JSON objects and arrays are allowed.');
+      if(Object.getOwnPropertySymbols(item).length) fail(path,'symbol keys are not JSON.');
+      if(array&&item.length>LIMITS.array) fail(path,'array exceeds '+LIMITS.array+' entries.');
+      ancestors.add(item);
+      const descriptors=Object.getOwnPropertyDescriptors(item);
+      for(const key of Object.keys(descriptors)) {
+        if(array&&key==='length') continue;
+        if(BAD_KEYS.has(key)) fail(path,'unsafe property name '+key+'.');
+        if(key.length>LIMITS.key) fail(path,'property names exceed '+LIMITS.key+' characters.');
+        if(array&&!/^(0|[1-9]\d*)$/.test(key)) fail(path,'arrays may only contain indexed values.');
+        const desc=descriptors[key];
+        if(!own(desc,'value')||!desc.enumerable) fail(path+'.'+key,'accessors and hidden properties are not JSON data.');
+        visit(desc.value,path+'.'+key,depth+1);
+      }
+      if(array&&Object.keys(item).length!==item.length) fail(path,'sparse arrays are not supported.');
+      ancestors.delete(item);
+    }
+    visit(value,'Project',0);
+    if(bytes(JSON.stringify(value))>LIMITS.bytes) fail('Project','file exceeds 2 MiB.');
+    return value;
+  }
+  function validateSetting(key,value,path) {
+    const parameter=PARAM_BY_KEY[key];
+    if(!parameter) fail(path,'unknown parameter.');
+    if(parameter.options) member(value,parameter.options,path);
+    else number(value,path,parameter.min,parameter.max);
+    return value;
+  }
+  function validateSettings(value,path='Settings') {
+    exactKeys(value,PARAMS.map(p=>p.key),path);
+    for(const parameter of PARAMS) validateSetting(parameter.key,value[parameter.key],path+'.'+parameter.key);
+    return value;
+  }
+  function validatePayload(payload,path='tools.game_feel.payload') {
+    exactKeys(payload,['settings','comparison','activeDemo','intent','mappingNotes','exerciseStep','accessibility','notes'],path);
+    validateSettings(payload.settings,path+'.settings');
+    exactKeys(payload.comparison,['enabled','parameter','value'],path+'.comparison');
+    boolean(payload.comparison.enabled,path+'.comparison.enabled');
+    member(payload.comparison.parameter,PARAMS.map(p=>p.key),path+'.comparison.parameter');
+    validateSetting(payload.comparison.parameter,payload.comparison.value,path+'.comparison.value');
+    member(payload.activeDemo,DEMOS,path+'.activeDemo');
+    string(payload.intent,path+'.intent'); string(payload.mappingNotes,path+'.mappingNotes',8000);
+    number(payload.exerciseStep,path+'.exerciseStep',0,4,true);
+    exactKeys(payload.accessibility,['reducedMotion','mute','volume'],path+'.accessibility');
+    boolean(payload.accessibility.reducedMotion,path+'.accessibility.reducedMotion');
+    boolean(payload.accessibility.mute,path+'.accessibility.mute');
+    number(payload.accessibility.volume,path+'.accessibility.volume',0,1);
+    if(!Array.isArray(payload.notes)||payload.notes.length>LIMITS.notes) fail(path+'.notes','must be an array with at most '+LIMITS.notes+' notes.');
+    const noteIds=new Set();
+    payload.notes.forEach((note,index)=>{
+      const location=path+'.notes['+index+']';
+      exactKeys(note,['id','createdAt','demo','parameter','aSettings','bSettings','preferred','reason','observation','tester','conditions','intent'],location);
+      uuidValue(note.id,location+'.id');
+      if(noteIds.has(note.id)) fail(location+'.id','duplicates another note identity.');
+      noteIds.add(note.id); iso(note.createdAt,location+'.createdAt');
+      member(note.demo,DEMOS,location+'.demo');
+      member(note.parameter,PARAMS.map(p=>p.key),location+'.parameter');
+      validateSettings(note.aSettings,location+'.aSettings'); validateSettings(note.bSettings,location+'.bSettings');
+      for(const parameter of PARAMS) if(parameter.key!==note.parameter&&note.aSettings[parameter.key]!==note.bSettings[parameter.key]) fail(location+'.bSettings','A and B may differ only in the selected parameter '+note.parameter+'.');
+      member(note.preferred,['','A','B','No preference'],location+'.preferred');
+      for(const key of ['reason','observation','conditions','intent']) string(note[key],location+'.'+key);
+      string(note.tester,location+'.tester',300);
+    });
+    return payload;
+  }
+  function validateSnapshot(snapshot) {
+    safeJSON(snapshot); object(snapshot,'Project');
+    if(snapshot.format!=='avalon.creator-project') fail('format','expected avalon.creator-project.');
+    if(snapshot.schemaVersion!==1) fail('schemaVersion','only root schema version 1 is supported.');
+    object(snapshot.project,'project'); uuidValue(snapshot.project.id,'project.id');
+    for(const key of ['name','platform','engine','genre','targetAudience','stage','gameVersion']) string(snapshot.project[key],'project.'+key,2000);
+    for(const key of ['targetDevices','designPillars']) {
+      const array=snapshot.project[key];
+      if(!Array.isArray(array)||array.length>50) fail('project.'+key,'must be an array with at most 50 text entries.');
+      array.forEach((item,index)=>string(item,'project.'+key+'['+index+']',1000));
+    }
+    if(snapshot.project.sessionLengthMinutes!==null) number(snapshot.project.sessionLengthMinutes,'project.sessionLengthMinutes',0,100000);
+    object(snapshot.tools,'tools');
+    if(Object.keys(snapshot.tools).length>LIMITS.tools) fail('tools','at most '+LIMITS.tools+' module entries are supported.');
+    for(const [key,entry] of Object.entries(snapshot.tools)) {
+      object(entry,'tools.'+key);
+      number(entry.moduleVersion,'tools.'+key+'.moduleVersion',1,Number.MAX_SAFE_INTEGER,true);
+      iso(entry.updatedAt,'tools.'+key+'.updatedAt'); object(entry.payload,'tools.'+key+'.payload');
+      if(key===TOOL_KEY) {
+        if(entry.moduleVersion!==1) fail('tools.game_feel.moduleVersion','this tool only opens version 1. The file was not opened, and your work is safe.');
+        validatePayload(entry.payload);
+      }
+    }
+    return snapshot;
+  }
+  function parseSnapshot(text) {
+    if(typeof text!=='string') fail('Import','must contain JSON text.');
+    if(bytes(text)>LIMITS.bytes) fail('Import','file exceeds 2 MiB.');
+    let parsed;
+    try { parsed=JSON.parse(text); } catch(error) { fail('Import','This file could not be read. Check that it is a full project file.'); }
+    return validateSnapshot(parsed);
+  }
+  function clone(value) { safeJSON(value); return JSON.parse(JSON.stringify(value)); }
+  function uuid() {
+    if(root.crypto&&typeof root.crypto.randomUUID==='function') return root.crypto.randomUUID();
+    const octets=new Uint8Array(16);
+    if(root.crypto&&typeof root.crypto.getRandomValues==='function') root.crypto.getRandomValues(octets);
+    else for(let i=0;i<16;i++) octets[i]=Math.floor(Math.random()*256);
+    octets[6]=(octets[6]&15)|64;octets[8]=(octets[8]&63)|128;
+    const hex=Array.from(octets,value=>value.toString(16).padStart(2,'0')).join('');
+    return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
+  }
+  function defaultPayload() {
+    return {settings:Object.fromEntries(PARAMS.map(p=>[p.key,p.default])),comparison:{enabled:true,parameter:'acceleration',value:2800},activeDemo:'movement',intent:'',mappingNotes:'',exerciseStep:0,accessibility:{reducedMotion:false,mute:true,volume:0.2},notes:[]};
+  }
+  function newSnapshot(example=false) {
+    const payload=defaultPayload();
+    if(example) payload.intent='Responsive enough for short jumps; forgiving of slightly early inputs.';
+    return {format:'avalon.creator-project',schemaVersion:1,project:{id:uuid(),name:example?'Pocket Platformer':'',platform:example?'Roblox':'',engine:example?'Roblox Studio':'',genre:example?'Precision platformer':'',targetAudience:example?'Players who enjoy short obstacle courses':'',targetDevices:example?['Desktop','Tablet','Phone']:[],stage:example?'Prototype':'',gameVersion:example?'0.1':'',designPillars:example?['Readable obstacles','Responsive control','Forgiving inputs']:[],sessionLengthMinutes:example?8:null},tools:{[TOOL_KEY]:{moduleVersion:1,updatedAt:new Date().toISOString(),payload}}};
+  }
+  function touch(snapshot) {
+    validateSnapshot(snapshot);
+    if(!snapshot.tools||!snapshot.tools[TOOL_KEY]||snapshot.tools[TOOL_KEY].moduleVersion!==1) fail('Workspace','a supported game_feel module is required before editing.');
+    snapshot.tools[TOOL_KEY].updatedAt=new Date().toISOString(); return snapshot;
+  }
+  function deriveB(payload) {
+    const settings={...payload.settings};
+    if(payload.comparison.enabled) settings[payload.comparison.parameter]=payload.comparison.value;
+    return settings;
+  }
+  function sameJSON(a,b) {
+    if(a===b) return true;
+    if(!a||!b||typeof a!=='object'||typeof b!=='object'||Array.isArray(a)!==Array.isArray(b)) return false;
+    const aKeys=Object.keys(a).sort(),bKeys=Object.keys(b).sort();
+    return aKeys.length===bKeys.length&&aKeys.every((key,index)=>key===bKeys[index]&&sameJSON(a[key],b[key]));
+  }
+  function differencePreview(current,incoming) {
+    validateSnapshot(current); validateSnapshot(incoming);
+    const currentKeys=Object.keys(current.tools),incomingKeys=Object.keys(incoming.tools);
+    const modules=Array.from(new Set([...currentKeys,...incomingKeys])).map(key=>({key,currentVersion:current.tools[key]?.moduleVersion??null,incomingVersion:incoming.tools[key]?.moduleVersion??null,status:!own(incoming.tools,key)?'not in the file':!own(current.tools,key)?'added':sameJSON(current.tools[key],incoming.tools[key])?'unchanged':'changed'}));
+    return {sameIdentity:current.project.id===incoming.project.id,current:{id:current.project.id,name:current.project.name,gameVersion:current.project.gameVersion},incoming:{id:incoming.project.id,name:incoming.project.name,gameVersion:incoming.project.gameVersion},profileChanged:!sameJSON(current.project,incoming.project),modules,absentModules:currentKeys.filter(key=>!own(incoming.tools,key)),changedModules:modules.filter(item=>item.status==='changed').map(item=>item.key),addedModules:incomingKeys.filter(key=>!own(current.tools,key)),ownModuleMissing:!own(incoming.tools,TOOL_KEY)};
+  }
+  const api={TOOL_KEY,LIMITS,DEMOS,PARAMS,PARAM_BY_KEY,safeJSON,validateSetting,validateSettings,validatePayload,validateSnapshot,parseSnapshot,newSnapshot,defaultPayload,clone,uuid,touch,deriveB,differencePreview};
+  root.GFData=Object.freeze(api);
+  if(typeof module!=='undefined'&&module.exports) module.exports=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+/* Avalon Game Feel Sandbox. Original browser simulation, reference units only. */
+(function (root) {
+  'use strict';
+  const STEP = 1 / 120;
+  const W = 560, H = 340, GROUND = 280, EPS = 1e-9;
+  const clamp = (n, low, high) => Math.min(high, Math.max(low, n));
+  const toward = (n, target, amount) => n < target ? Math.min(target, n + amount) : Math.max(target, n - amount);
+
+  function platforms(scene) {
+    return scene === 'jumping' ? [[0, 340, GROUND], [450, 760, GROUND], [840, 1400, GROUND]] : [[0, 1400, GROUND]];
+  }
+  function createState(scene = 'movement', scenario = 'default') {
+    const s = {
+      scene, scenario, t: 0, x: 80, y: GROUND, previousX: 80, previousY: GROUND,
+      vx: 0, vy: 0, width: 24, height: 32, grounded: true,
+      coyoteRemaining: 0, bufferRemaining: 0, jumps: 0, landings: 0, respawns: 0,
+      cameraX: 0, shakeX: 0, shakeY: 0, hitAge: -1, hitCount: 0, hitSerial: 0,
+      hitPauseRemaining: 0, soundCount: 0, pendingSoundTimes: [],
+      dummyX: 300, dummyVx: 0, lastJump: '', lastEdgeX: null, peakHeight: 0
+    };
+    if (scene === 'jumping' && scenario === 'buffer') {
+      s.x = s.previousX = 150;
+      s.y = s.previousY = 235;
+      s.vy = 280;
+      s.grounded = false;
+    }
+    if (scene === 'jumping' && scenario === 'edge') {
+      s.x = s.previousX = 333;
+    }
+    return s;
+  }
+  function doJump(s, p, reason) {
+    s.vy = -p.jumpImpulse;
+    s.grounded = false;
+    s.coyoteRemaining = 0;
+    s.bufferRemaining = 0;
+    s.jumps++;
+    s.lastJump = reason;
+  }
+  function updateCamera(s, p, dt, options) {
+    const target = Math.max(0, s.x - 170);
+    const alpha = p.cameraFollowMs <= 0 ? 1 : -Math.expm1(-dt / (p.cameraFollowMs / 1000));
+    s.cameraX += (target - s.cameraX) * alpha;
+    const age = s.hitAge;
+    const strength = options.reducedMotion ? 0 : p.cameraShakePx;
+    if (strength > 0 && age >= 0 && age < 0.32) {
+      const envelope = (1 - age / 0.32) ** 2;
+      s.shakeX = Math.sin(age * 83 + 0.8) * strength * envelope;
+      s.shakeY = Math.sin(age * 107 + 1.3) * strength * 0.65 * envelope;
+    } else {
+      s.shakeX = 0;
+      s.shakeY = 0;
+    }
+  }
+  function step(s, p, input = {}, dt = STEP, scene = s.scene || 'movement', options = {}) {
+    if (!Number.isFinite(dt) || dt <= 0 || dt > 0.05) throw new RangeError('Physics dt must be greater than 0 and at most 0.05 seconds.');
+    s.previousX = s.x;
+    s.previousY = s.y;
+    s.t += dt;
+    if (s.hitAge >= 0) s.hitAge += dt;
+    if (input.hitPressed) {
+      s.hitCount++;
+      s.hitSerial++;
+      s.hitAge = 0;
+      s.hitPauseRemaining = p.hitPauseMs / 1000;
+      s.dummyVx = p.knockback * (s.x > s.dummyX ? -1 : 1);
+      s.pendingSoundTimes.push(s.t + p.soundDelayMs / 1000);
+      s.pendingSoundTimes.sort((a, b) => a - b);
+    }
+    // Sound scheduling and visual age continue during an impact pause.
+    while (s.pendingSoundTimes.length && s.pendingSoundTimes[0] <= s.t + EPS) {
+      s.pendingSoundTimes.shift();
+      s.soundCount++;
+    }
+    s.coyoteRemaining = s.grounded ? p.coyoteMs / 1000 : Math.max(0, s.coyoteRemaining - dt);
+    s.bufferRemaining = input.jumpPressed ? p.bufferMs / 1000 : Math.max(0, s.bufferRemaining - dt);
+    const paused = s.hitPauseRemaining > EPS;
+    s.hitPauseRemaining = Math.max(0, s.hitPauseRemaining - dt);
+    if (paused) {
+      updateCamera(s, p, dt, options);
+      return s;
+    }
+
+    // Jump input is evaluated before movement; positive buffer time can also be consumed on landing.
+    if ((input.jumpPressed || s.bufferRemaining > EPS) && (s.grounded || s.coyoteRemaining > EPS)) {
+      doJump(s, p, s.grounded ? (input.jumpPressed ? 'normal jump' : 'early press, saved') : 'late jump off ledge');
+    }
+    const rawAxis = Number.isFinite(input.axis) ? input.axis : 0;
+    const axis = clamp(rawAxis, -1, 1);
+    const airFactor = s.grounded ? 1 : p.airControl;
+    if (Math.abs(axis) > EPS) {
+      const desired = axis * p.maxSpeed;
+      const reversing = desired * s.vx < 0;
+      s.vx = toward(s.vx, desired, p.acceleration * airFactor * (reversing ? p.turnResponse : 1) * dt);
+    } else {
+      s.vx = toward(s.vx, 0, p.deceleration * airFactor * dt);
+    }
+    s.vx = clamp(s.vx, -p.maxSpeed, p.maxSpeed);
+    s.x = clamp(s.x + s.vx * dt, 20, 1340);
+    if ((s.x <= 20 && s.vx < 0) || (s.x >= 1340 && s.vx > 0)) s.vx = 0;
+    const floors = platforms(scene);
+    if (s.grounded && !floors.some(([left, right, top]) => s.x >= left && s.x <= right && Math.abs(s.y - top) < 0.01)) {
+      s.grounded = false;
+      s.lastEdgeX = s.x;
+    }
+    if (!s.grounded) {
+      const oldY = s.y;
+      // Semi-implicit Euler: change velocity first, then integrate position.
+      s.vy += p.gravity * dt;
+      s.y += s.vy * dt;
+      if (s.vy >= 0) {
+        let landing = null;
+        for (const [left, right, top] of floors) {
+          if (s.x >= left && s.x <= right && oldY <= top + EPS && s.y >= top && (landing === null || top < landing)) landing = top;
+        }
+        if (landing !== null) {
+          s.y = landing;
+          s.vy = 0;
+          s.grounded = true;
+          s.coyoteRemaining = p.coyoteMs / 1000;
+          s.landings++;
+          if (s.bufferRemaining > EPS) doJump(s, p, 'early press, on landing');
+        }
+      }
+    }
+    s.peakHeight = Math.max(s.peakHeight, GROUND - s.y);
+    if (s.y > 650) {
+      s.respawns++;
+      s.x = s.previousX = 80;
+      s.y = s.previousY = GROUND;
+      s.vx = s.vy = 0;
+      s.grounded = true;
+      s.coyoteRemaining = s.bufferRemaining = 0;
+      s.cameraX = 0;
+    }
+    s.dummyVx *= Math.exp(-5 * dt);
+    s.dummyX = clamp(s.dummyX + s.dummyVx * dt, 40, 1380);
+    if ((s.dummyX <= 40 && s.dummyVx < 0) || (s.dummyX >= 1380 && s.dummyVx > 0)) s.dummyVx = 0;
+    updateCamera(s, p, dt, options);
+    return s;
+  }
+
+  class FrameClock {
+    constructor() {
+      this.hidden = false;
+      this.lastTimestamp = null;
+      this.accumulator = 0;
+      this.droppedSeconds = 0;
+      this.steps = 0;
+    }
+    reset() {
+      this.lastTimestamp = null;
+      this.accumulator = 0;
+      this.droppedSeconds = 0;
+      this.steps = 0;
+    }
+    setHidden(hidden) {
+      this.hidden = Boolean(hidden);
+      // Both transitions discard elapsed wall time and partial steps.
+      this.lastTimestamp = null;
+      this.accumulator = 0;
+    }
+    tick(timestamp, callback) {
+      if (!Number.isFinite(timestamp)) return 0;
+      if (this.hidden) { this.lastTimestamp = null; return 0; }
+      if (this.lastTimestamp === null) { this.lastTimestamp = timestamp; return 0; }
+      const elapsed = (timestamp - this.lastTimestamp) / 1000;
+      this.lastTimestamp = timestamp;
+      if (elapsed < 0) { this.accumulator = 0; return 0; }
+      const delta = Math.min(elapsed, 0.05);
+      this.droppedSeconds += elapsed - delta;
+      this.accumulator += delta;
+      let count = 0;
+      while (this.accumulator + EPS >= STEP && count < 8) {
+        callback(STEP);
+        this.accumulator = Math.max(0, this.accumulator - STEP);
+        count++;
+      }
+      if (count === 8 && this.accumulator >= STEP) {
+        this.droppedSeconds += this.accumulator;
+        this.accumulator = 0;
+      }
+      this.steps += count;
+      return count;
+    }
+  }
+  const api = Object.freeze({ STEP, W, H, GROUND, platforms, createState, step, FrameClock });
+  root.GFPhysics = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* Avalon Game Feel Sandbox: original teaching copy and illustrative presets. */
+(function (root) {
+  'use strict';
+  if (!root.GFData) throw new Error('Load the game-feel project schema before teaching content.');
+  const defaults = root.GFData.defaultPayload().settings;
+  const controls = {
+    maxSpeed: {
+      change: 'Sets the fastest the player can run while holding a direction.',
+      suits: 'Picking how fast players cross a room or an obstacle.',
+      tradeoff: 'Faster means less time to react or stop.',
+      implementation: 'Speed is capped at this many demo px per second. Speed-up still decides how fast you reach the cap.'
+    },
+    acceleration: {
+      change: 'Sets how fast the player gets up to top speed.',
+      suits: 'High values give quick starts and small, exact steps.',
+      tradeoff: 'Low values feel smooth, but short taps may feel slow to respond.',
+      implementation: 'Each second, speed goes up by this amount until it hits top speed. Top speed does not change.'
+    },
+    deceleration: {
+      change: 'Sets how fast the player stops after you let go.',
+      suits: 'High values help on small platforms. Low values feel slidey, like ice.',
+      tradeoff: 'A long slide needs more room to stop. Very sudden stops can feel light, not heavy.',
+      implementation: 'Each second, speed drops toward zero by this amount. Air control changes this while in the air.'
+    },
+    turnResponse: {
+      change: 'Sets how fast the player can turn around.',
+      suits: 'High values allow quick U-turns. Low values make a heavy character commit to a direction.',
+      tradeoff: 'Quick turns make mistakes easy to fix, but choosing a direction matters less.',
+      implementation: 'Speed-up is multiplied by this number while turning around. Normal speed-up comes back after the turn.'
+    },
+    jumpImpulse: {
+      change: 'Sets how hard the player pushes off when a jump starts.',
+      suits: 'Use it with gravity to get the jump height and air time your level needs.',
+      tradeoff: 'More power jumps higher, but also stays in the air longer and goes farther.',
+      implementation: 'The jump starts with this upward speed. Best-case height is power² ÷ (2 × gravity). The demo is a little different.'
+    },
+    gravity: {
+      change: 'Sets how fast the player falls back down.',
+      suits: 'High gravity gives short, snappy jumps. Low gravity feels floaty.',
+      tradeoff: 'With the same jump power, more gravity means lower jumps and less time to steer.',
+      implementation: 'Each second, falling speed goes up by this amount. Units are demo px per second, per second.'
+    },
+    airControl: {
+      change: 'Sets how much you can steer while in the air.',
+      suits: 'High values let players fix a jump midair. Low values make the takeoff matter more.',
+      tradeoff: 'Easy steering makes jumps less risky. Little steering makes a small mistake costly.',
+      implementation: 'In the air, speed-up, slow-down, and turning are multiplied by this number from 0 to 1. At 0, you keep your speed until you land.'
+    },
+    coyoteMs: {
+      change: 'Lets the player still jump for a moment after running off a ledge. Game designers call this coyote time.',
+      suits: 'A short window helps when a jump press looks on time to the player but is a bit late.',
+      tradeoff: 'A long window lets players jump from thin air, far past the edge.',
+      implementation: 'A timer starts when you leave the ground. A jump uses it up. It never gives a second jump.'
+    },
+    bufferMs: {
+      change: 'Remembers a jump press made just before landing, then jumps when you land.',
+      suits: 'A short memory helps repeat jumps work when a press is a little early.',
+      tradeoff: 'A long memory can make a jump happen after the player changed their mind.',
+      implementation: 'The press is saved for this many ms and used once. At 0, the press only works if you can jump right then.'
+    },
+    hitPauseMs: {
+      change: 'Freezes the player and target for a moment when a hit lands.',
+      suits: 'A small pause makes a hit easier to notice.',
+      tradeoff: 'Long or frequent pauses break up movement and can mess up the rhythm.',
+      implementation: 'The player and target freeze. Hit labels, the camera, and sound timing keep going during the pause.'
+    },
+    knockback: {
+      change: 'Sets how fast the target gets pushed away by a hit.',
+      suits: 'Showing a strong hit, or making space after a hit.',
+      tradeoff: 'A big push can send the target out of reach, so the next hit misses.',
+      implementation: 'The target gets this speed, then slows down smoothly (exp(−5 × seconds)). It is a simple push, not real physics.'
+    },
+    soundDelayMs: {
+      change: 'Waits this long after a hit before the sound plays.',
+      suits: 'Comparing an instant sound with a late one.',
+      tradeoff: 'A delay can fit a special style, but it can make a hit feel off.',
+      implementation: 'The sound is due this many ms after the hit. Your browser and speakers add their own delay, which this tool does not measure.'
+    },
+    visualStrength: {
+      change: 'Sets how strong the flash and sparkles are around a hit.',
+      suits: 'Use enough so hits stand out from the background.',
+      tradeoff: 'Strong effects can hide targets and movement. Weak effects may be missed.',
+      implementation: 'This does not change camera shake. The HIT label still shows at 0 and with less motion on.'
+    },
+    cameraFollowMs: {
+      change: 'Sets how slowly the camera catches up to the player. Zero follows right away.',
+      suits: 'A small delay feels smooth. A quick follow keeps the player centered for tricky jumps.',
+      tradeoff: 'A slow camera feels smooth, but the player drifts away from the center.',
+      implementation: 'The camera closes about 63% of the gap in one follow time, not the whole gap. Math: 1 − exp(−seconds ÷ follow time).'
+    },
+    cameraShakePx: {
+      change: 'Shakes the camera for a moment after a hit.',
+      suits: 'A little shake can make a big hit stand out.',
+      tradeoff: 'Shake can make aiming hard and make some players feel sick. Do not use it as the only hit signal.',
+      implementation: 'The shake fades over 320 ms and is the same every time. At 0, or with less motion on, there is no shake. The hit signal stays.'
+    },
+    uiDurationMs: {
+      change: 'Sets how long a menu animation takes.',
+      suits: 'Short animations fit buttons you click a lot. Longer ones help show that something changed.',
+      tradeoff: 'Slow animations make players wait. Instant changes can be hard to follow.',
+      implementation: 'The animation follows real time in ms, not screen frames. At 0, the change happens right away.'
+    },
+    uiEasing: {
+      change: 'Changes how the speed of the animation changes from start to end. This is called easing.',
+      suits: 'Ease out slows down at the end. Ease in and out starts and ends slow. Linear keeps one steady speed.',
+      tradeoff: 'Small overshoot goes a bit too far, then settles back. It adds fun, but it can be distracting.',
+      implementation: 'The chosen curve shapes the animation from start (0) to end (1). Time and distance stay the same, so only the motion in between changes.'
+    },
+    uiHoverPx: {
+      change: 'Sets how far a button lifts when you point at it or tab to it.',
+      suits: 'A small lift shows that a button is ready to click.',
+      tradeoff: 'A big lift can be distracting. Touch screens do not have hover.',
+      implementation: 'Pointing and tabbing (keyboard focus) both lift the button. At 0, the button still shows a focus outline and a clear label.'
+    },
+    uiConfirmMs: {
+      change: 'Sets how long the "done" message stays after you click.',
+      suits: 'Give players enough time to notice what happened.',
+      tradeoff: 'Too short and players miss it. Too long and it stays after it matters.',
+      implementation: 'This is separate from the animation time. Restart clears any message, so A and B start the same.'
+    }
+  };
+  const presets = {
+    precise: {
+      name: 'Precise platforming',
+      description: 'Quick starts and stops, lots of air control, and a small window for late or early jumps. A starting point for levels with small platforms.',
+      settings: { ...defaults, maxSpeed: 260, acceleration: 2400, deceleration: 3200, turnResponse: 2, jumpImpulse: 480, gravity: 1500, airControl: 0.8, coyoteMs: 100, bufferMs: 140, hitPauseMs: 35, cameraShakePx: 0 }
+    },
+    weighty: {
+      name: 'Heavy movement',
+      description: 'Slow starts, slow turns, and little air control. An example of a character that has to commit. Heavy is not better or worse.',
+      settings: { ...defaults, maxSpeed: 230, acceleration: 550, deceleration: 700, turnResponse: 0.6, jumpImpulse: 430, gravity: 1600, airControl: 0.25, coyoteMs: 80, bufferMs: 100, hitPauseMs: 60 }
+    },
+    restrained: {
+      name: 'Soft hits',
+      description: 'A short hit pause, a small push, soft hit effects, and no shake. Test if hits are still easy to notice.',
+      settings: { ...defaults, hitPauseMs: 25, knockback: 100, visualStrength: 0.35, cameraShakePx: 0 }
+    },
+    gentle: {
+      name: 'Calm menus',
+      description: 'A short, smooth menu animation, a small hover lift, and a done message that stays long enough to read. An example of a calm menu.',
+      settings: { ...defaults, uiDurationMs: 180, uiEasing: 'easeInOut', uiHoverPx: 2, uiConfirmMs: 900, cameraShakePx: 0 }
+    }
+  };
+  const methods = [
+    'New projects use the motion setting on your device. Projects you open use the motion setting they saved. The Less motion checkbox changes it. The tool does not watch for later changes to your device setting.',
+    'This tool was built from scratch in your browser with simple shapes. All the lowest and highest values and example setups were picked for this tool. They are not rules, player surveys, or Roblox limits.',
+    'Distances use demo pixels (px). Making the window bigger or smaller does not change them. Time is counted in seconds inside the tool. Timing settings show milliseconds (ms). 1,000 ms = 1 second.',
+    'The game math runs 120 times per second, in equal steps. Each screen frame adds the time that passed. Speed is updated first, then position.',
+    'One frame can add at most 50 ms. If the browser freezes for a while, the extra time is skipped, so the player does not jump ahead. After long freezes, demo time can fall behind real time.',
+    'When you switch to another tab, the tool pauses, lets go of held keys, and skips the time you were away. Nothing replays when you come back.',
+    'Movement speeds up toward a top speed. Turn speed only matters while turning around. Air control changes speed-up, slow-down, and turning while in the air.',
+    'Jump height and air time guesses assume steady gravity, no ceiling, and flat ground to land on. The demo differs a little from the math. Always test in your real game.',
+    'The jump demo uses flat platforms. It checks the ground under the middle of the player. It has no slopes, moving platforms, walls, character animation, online play, or game engine code.',
+    'Hit pause freezes the player and target. The hit timer, camera, and sounds keep going. Knockback is a push that slows down smoothly. It is not real physics.',
+    'The camera catches up to the player smoothly. Shake is separate and fades over 320 ms. Less motion turns shake off, but the hit signal stays.',
+    'B is a copy of A with one setting changed. Restart both before you compare. Playing the same moves helps a fair test. A real player still needs to tell you how it felt.',
+    'Each saved note keeps the settings, your goal, which one felt better, why, and how you tested. A blank box means you did not know. This tool does not give a fun score or any statistics.',
+    'To use your work in another Avalon tool, save your newest project file and open it there. Tools never share data on their own. The text summary is for reading. You cannot open it as a project.',
+    'Saving in the browser is not guaranteed. A copy of this page does not include your later work. Click Save project file to keep a backup. Moving this page, using another browser, or clearing browser data can erase browser saves.'
+  ];
+  const schema = [
+    'The shared envelope is format "avalon.creator-project", schemaVersion 1, a shared project object, and a tools object. Project identity is its UUID, retained across saves and imports. Explicit duplication creates a new UUID; matching names do not establish identity.',
+    'The shared project fields are id, name, platform, engine, genre, targetAudience, targetDevices, stage, gameVersion, designPillars, and sessionLengthMinutes. Empty text and null session length preserve missing information.',
+    'This app owns tools.game_feel with moduleVersion 1, an actual ISO 8601 updatedAt timestamp, and a payload object. It edits that namespace and explicit user changes to shared profile fields.',
+    'The payload fields are settings, comparison, activeDemo, intent, mappingNotes, exerciseStep, accessibility, and notes. Settings contains all 19 bounded parameters listed in the tuning sheet.',
+    'Comparison contains enabled, parameter, and value. B is generated by copying settings and replacing only that selected parameter when enabled. The other settings remain identical.',
+    'ActiveDemo is movement, jumping, impact, camera, or interface. Intent and mappingNotes are creator text. ExerciseStep records guided-workshop progress from 0 through 4.',
+    'Accessibility contains reducedMotion, mute, and volume. The first two are booleans; volume is a number from 0 to 1. Effective playback can also depend on browser permission and the current audio session.',
+    'Each note contains id, createdAt, demo, parameter, aSettings, bSettings, preferred, reason, observation, tester, conditions, and intent. Preferred is empty, A, B, or No preference. The settings snapshots may differ only in the recorded comparison parameter.',
+    'Import validates the envelope, generic JSON safety limits, and supported game_feel payload before replacement. Limits include 2 MiB of UTF-8 JSON, nesting depth 32, 100,000 values, 16,000 characters per generic string, 50 modules, and 200 comparison notes. Field-specific limits may be lower.',
+    'Imported data is inert JSON. Unsafe property names, non-finite numbers, invalid types, unsupported root versions, and unsupported game_feel module versions are refused. A rejected or canceled import must retain the current workspace.',
+    'Unfamiliar tool entries and their versions are preserved as inert JSON. Their tool-specific meaning is not validated or interpreted. Before replacement, the preview identifies current modules absent from the incoming file as well as added or changed modules.',
+    'There is no automatic divergent-snapshot merge or timestamp winner. Review identity, game version, and module changes, then choose whether to replace the workspace. Export a backup first when the current snapshot needs to be retained.',
+    'Parameter-set and readable-brief exports are reference documents. Import uses the shared project snapshot envelope; a parameter-only file or readable brief is not a substitute for a project snapshot.'
+  ];
+  const content = { controls, presets, methods, schema, presetNotice: 'Example setups made for this tool. Look at all the settings and compare them with your goal.' };
+  root.GFContent = Object.freeze(content);
+  if (typeof module !== 'undefined' && module.exports) module.exports = content;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* Original procedural canvas artwork for the Avalon Game Feel Sandbox. */
+(function (root) {
+  'use strict';
+  const W = 560, H = 340, GROUND = 280;
+  const color = { sky:'#edf3ed', mist:'#dde8dc', leaf:'#c5d9c7', green:'#123d2d', mint:'#d9ebdd', red:'#803b45', ink:'#16392c', silver:'#f8fbf7', stone:'#a8beb0' };
+  const renderMemory = new WeakMap();
+  const clamp = (n,lo,hi)=>Math.max(lo,Math.min(hi,n));
+  const names = {movement:'MOVEMENT', jumping:'JUMPING', impact:'IMPACT', camera:'CAMERA', interface:'INTERFACE'};
+  function box(c,x,y,w,h,r=6) {
+    r=Math.min(r,w/2,h/2);
+    c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();
+  }
+  function text(c,label,x,y,size=14,fill=color.ink,weight=500,align='left') {
+    c.font=weight+' '+size+'px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    c.fillStyle=fill;c.textAlign=align;c.textBaseline='alphabetic';c.fillText(label,x,y);
+  }
+  function pill(c,label,x,y,fill=color.silver,ink=color.ink,size=13) {
+    c.font='600 '+size+'px system-ui, sans-serif';
+    const width=c.measureText(label).width+20;
+    c.fillStyle=fill;box(c,x,y,width,27,7);c.fill();text(c,label,x+10,y+18,size,ink,600);return width;
+  }
+  function arrow(c,x1,y1,x2,y2,ink,width=2,head=6) {
+    const a=Math.atan2(y2-y1,x2-x1);c.strokeStyle=ink;c.lineWidth=width;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();
+    c.fillStyle=ink;c.beginPath();c.moveTo(x2,y2);c.lineTo(x2-head*Math.cos(a-.5),y2-head*Math.sin(a-.5));c.lineTo(x2-head*Math.cos(a+.5),y2-head*Math.sin(a+.5));c.closePath();c.fill();
+  }
+  function background(c,scene) {
+    c.fillStyle=color.sky;c.fillRect(0,0,W,H);
+    c.fillStyle='#e4ece0';c.beginPath();c.arc(460,82,36,0,Math.PI*2);c.fill();
+    c.fillStyle=color.mist;c.beginPath();c.moveTo(0,216);c.bezierCurveTo(80,170,115,204,173,191);c.bezierCurveTo(242,164,289,183,343,207);c.bezierCurveTo(428,231,489,165,560,186);c.lineTo(560,H);c.lineTo(0,H);c.closePath();c.fill();
+    c.fillStyle='#d2e1d0';c.beginPath();c.moveTo(0,255);c.bezierCurveTo(97,210,151,249,233,231);c.bezierCurveTo(327,212,402,251,560,222);c.lineTo(560,H);c.lineTo(0,H);c.closePath();c.fill();
+    c.strokeStyle='#aec6b644';c.lineWidth=1;
+    for(let y=120;y<GROUND;y+=40){c.beginPath();c.moveTo(0,y+.5);c.lineTo(W,y+.5);c.stroke();}
+    if(scene==='jumping') {c.fillStyle='#9ab29f';c.fillRect(0,GROUND,W,H-GROUND);}
+  }
+  function ground(c,scene,s) {
+    const floor=scene==='jumping'?[[0,340,GROUND],[450,760,GROUND],[840,1400,GROUND]]:[[0,1400,GROUND]];
+    for(const [left,right,top] of floor) {
+      c.fillStyle=color.green;c.fillRect(left,top,right-left,H-top+12);
+      c.fillStyle='#7ca087';c.fillRect(left,top,right-left,5);
+      c.strokeStyle='#8ca89244';c.lineWidth=1;
+      const start=Math.ceil(left/40)*40;
+      for(let x=start;x<right;x+=40){c.beginPath();c.moveTo(x+.5,top+6);c.lineTo(x+.5,H);c.stroke();}
+      c.strokeStyle='#8ca89233';c.beginPath();c.moveTo(left,top+30.5);c.lineTo(right,top+30.5);c.stroke();
+      for(let x=Math.ceil(left/100)*100;x<=right;x+=100) {
+        c.strokeStyle='#b9d0ba';c.beginPath();c.moveTo(x+.5,top+7);c.lineTo(x+.5,top+13);c.stroke();
+        if(x-s.cameraX>-35&&x-s.cameraX<W+35)text(c,String(x),x,top+28,13,'#d5e4d3',500,'center');
+      }
+      if(scene==='jumping') {
+        c.fillStyle='#d9ebdd';c.fillRect(left,top,5,19);c.fillRect(right-5,top,5,19);
+      }
+    }
+    if(scene==='jumping') {
+      for(const [left,right] of [[340,450],[760,840]]) {
+        c.strokeStyle='#64806e';c.setLineDash([3,5]);c.beginPath();c.moveTo((left+right)/2,GROUND+9);c.lineTo((left+right)/2,H-15);c.stroke();c.setLineDash([]);
+      }
+    }
+  }
+  function markers(c,scene,s) {
+    if(scene==='camera') {
+      for(let x=180;x<=1260;x+=180) {
+        c.fillStyle='#8bad9566';c.fillRect(x-10,121,20,GROUND-121);
+        c.fillStyle='#9ab59e';c.fillRect(x-10,121,5,GROUND-121);
+        c.fillStyle=color.green;box(c,x-24,106,48,30,5);c.fill();
+        text(c,String(x),x,126,14,color.silver,600,'center');
+        c.strokeStyle='#aac3af';c.lineWidth=1;c.beginPath();c.moveTo(x+10,163);c.lineTo(x+34,163);c.stroke();
+      }
+    } else if(scene!=='impact') {
+      for(let x=200;x<=1300;x+=200) {
+        if(scene==='jumping' && ((x>340&&x<450)||(x>760&&x<840)))continue;
+        c.strokeStyle='#71977e';c.lineWidth=2;c.beginPath();c.moveTo(x,GROUND);c.lineTo(x,GROUND-48);c.stroke();
+        c.fillStyle='#9dbda4';c.beginPath();c.moveTo(x,GROUND-48);c.lineTo(x+22,GROUND-41);c.lineTo(x,GROUND-34);c.closePath();c.fill();
+      }
+    }
+  }
+  function player(c,s,lane) {
+    const ink=lane==='B'?color.red:color.green;
+    const hAbove=Math.max(0,GROUND-s.y);
+    const hasGround=s.scene!=='jumping'||!((s.x>340&&s.x<450)||(s.x>760&&s.x<840));
+    if(hasGround){c.fillStyle='#102f2126';c.beginPath();c.ellipse(s.x,GROUND-1,Math.max(6,15-hAbove*.025),3,0,0,Math.PI*2);c.fill();}
+    c.fillStyle=ink;box(c,s.x-12,s.y-32,24,26,7);c.fill();
+    c.fillStyle=ink;box(c,s.x-10,s.y-10,7,10,2);c.fill();box(c,s.x+3,s.y-10,7,10,2);c.fill();
+    c.fillStyle=lane==='B'?'#bd9297':'#6d9b7c';box(c,s.x-8,s.y-28,16,8,3);c.fill();
+    const face=s.vx<-.5?-1:1;
+    c.fillStyle=color.silver;c.fillRect(s.x-6+face,s.y-22,4,4);c.fillRect(s.x+3+face,s.y-22,4,4);
+    c.fillStyle=ink;c.fillRect(s.x-5+face*2,s.y-21,1.5,2);c.fillRect(s.x+4+face*2,s.y-21,1.5,2);
+    if(Math.abs(s.vx)>15){const dx=clamp(s.vx*.13,-38,38);arrow(c,s.x,s.y-43,s.x+dx,s.y-43,ink,2,5);}
+  }
+  function target(c,s,p,reducedMotion) {
+    const x=s.dummyX, y=GROUND;
+    const fresh=s.hitAge>=0&&s.hitAge<.5;
+    const v=clamp(p.visualStrength,0,1);
+    c.fillStyle='#123d2d24';c.beginPath();c.ellipse(x,y,31,5,0,0,Math.PI*2);c.fill();
+    c.fillStyle='#527863';box(c,x-24,y-52,48,52,6);c.fill();
+    c.fillStyle=fresh&&v>0?'#d9ebdd':'#bdcfbd';box(c,x-20,y-50,35,45,4);c.fill();
+    c.strokeStyle='#56735d';c.lineWidth=1.5;c.beginPath();c.moveTo(x-20,y-29);c.lineTo(x+15,y-29);c.moveTo(x-3,y-50);c.lineTo(x-3,y-5);c.stroke();
+    c.fillStyle='#335742';box(c,x-8,y-38,15,15,3);c.fill();c.fillStyle='#c5d9c7';c.fillRect(x-4,y-34,7,7);
+    if(fresh && v>0 && !reducedMotion) {
+      const age=s.hitAge;
+      c.strokeStyle='rgba(42,95,58,'+((1-age/.5)*v*.8)+')';c.lineWidth=2;
+      c.beginPath();c.arc(x,y-29,30+age*70,0,Math.PI*2);c.stroke();
+      for(let i=0;i<7;i++) {
+        const angle=(i/7)*Math.PI*2+.2, radius=31+age*(75+i%3*23);
+        const xx=x+Math.cos(angle)*radius, yy=y-29+Math.sin(angle)*radius+age*age*70;
+        c.globalAlpha=(1-age/.5)*v;c.fillStyle=i%2?color.green:'#749879';c.fillRect(xx-2,yy-2,4,4);
+      }
+      c.globalAlpha=1;
+    }
+    if(fresh) {
+      // This static signal survives zero visual intensity and reduced motion.
+      const label='HIT '+s.hitCount;c.font='700 15px system-ui, sans-serif';const w=c.measureText(label).width+20;
+      c.fillStyle=color.green;box(c,x-w/2,y-87,w,28,6);c.fill();text(c,label,x,y-67,15,color.silver,700,'center');
+    } else text(c,'TARGET',x,y-67,13,'#466b52',600,'center');
+    if(Math.abs(s.dummyVx)>12) arrow(c,x,y-12,x+clamp(s.dummyVx*.2,-65,65),y-12,'#803b45',2,6);
+  }
+  function offscreen(c,s) {
+    const x=clamp(s.x-s.cameraX+s.shakeX,48,W-48);
+    if(s.y<45) {
+      arrow(c,x,89,x,68,color.green,2,7);
+      text(c,Math.round(GROUND-s.y)+' px high',clamp(x,70,W-70),109,15,color.green,650,'center');
+    } else if(s.y>H+15) {
+      c.fillStyle='#f2f7edee';box(c,x-42,H-73,84,52,6);c.fill();
+      text(c,'Falling!',x,H-52,14,color.green,600,'center');arrow(c,x,H-45,x,H-29,color.green,2,6);
+    }
+  }
+  function draw(canvas,s,p,options={}) {
+    const c=canvas.getContext('2d');if(!c)return;
+    const scene=options.scene||s.scene||'movement', lane=options.lane==='B'?'B':'A';
+    const reduced=!!options.reducedMotion;
+    c.save();c.setTransform(canvas.width/W,0,0,canvas.height/H,0,0);c.clearRect(0,0,W,H);
+    background(c,scene);
+    if(scene==='camera') {
+      c.strokeStyle='#71967d';c.lineWidth=1;c.setLineDash([4,6]);c.beginPath();c.moveTo(170,76);c.lineTo(170,GROUND-3);c.stroke();c.setLineDash([]);
+      text(c,'camera aim',180,82,13,'#58745f',500);
+    }
+    c.save();c.translate(-s.cameraX+(reduced?0:s.shakeX),reduced?0:s.shakeY);
+    markers(c,scene,s);ground(c,scene,s);
+    if(scene==='impact'||scene==='camera')target(c,s,p,reduced);
+    player(c,s,lane);
+    c.restore();offscreen(c,s);
+    pill(c,names[scene]||'WORKSHOP',14,13,'#f8fbf7ed',lane==='B'?color.red:color.green,13);
+    c.font='500 13px system-ui, sans-serif';const pos='x '+Math.round(s.x)+' px';
+    const posW=c.measureText(pos).width+20;pill(c,pos,W-posW-14,13,'#f8fbf7ed','#456652',13);
+
+    // Cue timing follows the same observed sound-count edge used by the audio layer.
+    let memo=renderMemory.get(canvas);
+    if(!memo||memo.state!==s){memo={state:s,soundCount:0,soundAt:-100};renderMemory.set(canvas,memo);}
+    if(s.soundCount>memo.soundCount)memo.soundAt=s.t;
+    memo.soundCount=s.soundCount;
+    if(s.t-memo.soundAt<.35)pill(c,'SOUND',14,49,'#e9f2df',color.green,13);
+    if(s.hitPauseRemaining>0)pill(c,'HIT PAUSE',14,85,'#f2e7e8',color.red,12);
+    if(scene==='jumping') {
+      if(s.bufferRemaining>0)pill(c,'Jump saved '+Math.ceil(s.bufferRemaining*1000)+' ms',14,49,'#e9f2df',color.green,13);
+      else if(!s.grounded&&s.coyoteRemaining>0)pill(c,'Late jump '+Math.ceil(s.coyoteRemaining*1000)+' ms',14,49,'#e9f2df',color.green,13);
+      if(s.scenario==='buffer'&&s.jumps>0)pill(c,'Early press worked',190,49,'#e9f2df',color.green,13);
+    }
+    c.fillStyle='#103123';c.fillRect(0,H-25,W,25);
+    text(c,Math.round(Math.abs(s.vx))+' px/s',14,H-8,13,'#e2eddf',600);
+    if(scene==='impact'||scene==='camera')text(c,'Hits '+s.hitCount,W-14,H-8,13,'#e2eddf',600,'right');
+    else if(scene==='jumping')text(c,'Jumps '+s.jumps+'  |  '+(s.grounded?'On floor':'In air'),W-14,H-8,13,'#e2eddf',600,'right');
+    else text(c,s.vx<-.5?'Moving left':s.vx>.5?'Moving right':'Standing still',W-14,H-8,13,'#e2eddf',500,'right');
+    c.restore();
+  }
+  const api=Object.freeze({draw});root.GFRender=api;
+  if(typeof module!=='undefined'&&module.exports)module.exports=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+const GFResearch = {"reviewedAt": "2026-10-21", "scope": "Official primary documentation reviewed during the build. Preset values, parameter ranges, and workshop recommendations are original illustrative design assumptions, not Roblox benchmarks.", "sources": [{"id": "roblox-design", "title": "Design games on Roblox", "url": "https://create.roblox.com/docs/production/game-design", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Roblox's design hub covers core loops, prototyping, onboarding, and UI/UX. It is a starting point for validating how a mechanic supports the wider experience.", "application": "Use goals and playtest observations alongside parameter comparisons; do not treat a preset as a universal quality score."}, {"id": "roblox-prototyping", "title": "Prototyping", "url": "https://create.roblox.com/docs/production/game-design/prototyping", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Roblox describes prototypes as experiments for exploring ideas and finding design problems before full production. It also warns that a result in one prototype medium may not transfer directly to another.", "application": "This browser workshop explores choices. Retest the chosen behavior in the target game and on its intended devices."}, {"id": "roblox-engine", "title": "Roblox Engine API reference", "url": "https://create.roblox.com/docs/reference/engine", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "The official reference documents the engine's classes, data types, properties, methods, and events.", "application": "Use the live reference when implementing a chosen behavior in Studio. This workshop does not connect to or run inside Roblox."}, {"id": "roblox-units", "title": "Roblox units", "url": "https://create.roblox.com/docs/physics/units", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Roblox uses seconds for time and studs for length. Its documentation gives standard conversions while emphasizing consistent unit interpretation.", "application": "Browser simulation pixels have no automatic conversion to studs. Define an explicit scale and validate speed, jump arc, collision, and camera behavior in the target controller."}, {"id": "mdn-api", "title": "Web APIs", "url": "https://developer.mozilla.org/en-US/docs/Web/API", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "MDN's Web APIs index is the reference gateway for browser capabilities used by the app.", "application": "The app uses browser APIs locally and needs no server for its core workshop."}, {"id": "raf", "title": "Window: requestAnimationFrame() method", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Animation callbacks usually follow display refresh. MDN warns that advancing by a fixed amount per rendered frame makes animation run faster on faster displays; use elapsed time.", "application": "Measure elapsed time with animation timestamps and advance a bounded fixed-step simulation. Test synthetic refresh schedules separately from physical display testing."}, {"id": "visibility", "title": "Page Visibility API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "The visibilitychange event and document.hidden identify hidden pages. Browsers commonly stop animation callbacks and throttle timers in the background.", "application": "Pause on hide, clear held inputs and accumulated elapsed time, and restart timing safely when visible. Do not simulate the entire hidden interval."}, {"id": "storage", "title": "Window: localStorage property", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Browser policy can block localStorage. Behavior for directly opened file URLs is undefined and differs across browsers; a per-file storage area is not guaranteed.", "application": "Attempt and report autosave accurately. Keep manual project JSON export/import available. Moving the HTML, changing browsers, or clearing storage can separate the app from its saved data."}, {"id": "audio", "title": "Autoplay guide for media and Web Audio APIs", "url": "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Web Audio is subject to browser autoplay policies. User interaction commonly permits playback, while script-triggered sound without user interaction can be blocked.", "application": "Start audio only from deliberate interaction, expose mute and volume, and keep visual hit feedback usable when audio is unavailable."}, {"id": "reduced-motion", "title": "prefers-reduced-motion CSS media feature", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "The reduced-motion preference communicates that a user wants nonessential motion removed, reduced, or replaced.", "application": "Use the system preference to initialize a new project. Restore the saved project setting on later visits, and provide an explicit checkbox to change it. Decorative motion can be disabled while retaining essential state changes and hit confirmation."}, {"id": "pointer", "title": "Pointer events", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events", "reviewedAt": "2026-10-21", "status": "reviewed", "summary": "Pointer events cover mouse, pen, and touch in one event model. Pointer capture keeps delivery on the pressed control; pointercancel and lost capture must release held state.", "application": "Use sufficiently large touch targets. Scope touch-action to gameplay controls so the rest of the page still scrolls and zooms."}], "teaching": {"coyoteTime": "Post-edge allowance: a short window after walking off a ledge when jump still works. It can make near-edge inputs feel more forgiving, but a large window lets players jump noticeably away from the ledge.", "jumpBuffer": "Jump buffer: remember a jump press made shortly before landing, then jump on contact. It can make quick repeat jumps easier, but a long window can trigger a jump the player no longer intended.", "comparison": "A/B changes one selected setting. Keep the same start position, scene, other settings, and input sequence. A preference explains what suited this test; it does not prove what every player will prefer.", "translation": "Treat the tuning sheet as a reference brief. Decide what one simulation pixel means in your engine, then implement and measure equivalent behavior. Matching numerical values alone will not match controller feel."}, "caveats": ["All ranges, presets, and teaching tradeoffs are authored workshop suggestions; no source establishes universal ideal values.", "The engine and game-design starting pages were read. No engine code has been executed or integrated.", "The Humanoid and Workspace HTML pages exposed API member names but did not expose descriptive property text in retrieval. Their markdown endpoints could not be read by the search tool because text/markdown was unsupported. Do not claim verified detailed JumpPower, WalkSpeed, or Gravity mapping from those pages.", "No third-party assets, source code, or source excerpts are required. Use original summaries with source links."]};
+</script>
+<script>
+const GFVerification = ["Release 1.0, 21 Oct 2026: five original playable demonstrations, 19 bounded settings, controlled A/B comparisons, four illustrative presets, a four-step guided exercise, comparison notes, and reference exports. All artwork and audio are self-contained.", "Physics uses a fixed 1/120-second step, so the demos move the same way at any screen refresh rate.", "Not checked on: physical phone, tablet or controller hardware, physical printers, Safari or Firefox, real refresh-rate displays, Roblox Studio, or another engine. No automatic synchronization, telemetry, asset import, or engine integration is built in."];
+(function () {
+ 'use strict';
+ const D=GFData, P=GFPhysics, C=GFContent;
+ const $=id=>document.getElementById(id);
+ const el=(tag,text,className)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;};
+ const title=s=>s.charAt(0).toUpperCase()+s.slice(1);
+ const val=(v,unit='')=>(typeof v==='number'?Number(v.toFixed(3)).toLocaleString('en-US'):String(v))+(unit?' '+unit:'');
+ const STORE='avalon.creator-project.game_feel.v1';
+ let state=D.newSnapshot(false),page='start',savedTimer=null,toastTimer=null,lastExport='',pendingReplacement=null,confirmCallback=null;
+ let storageProtected=false,recoveryRaw=null,noteDraftDirty=false,noteCapture=null,editingNoteId=null;
+ let activeAudio=false,audioContext=null,audioLane='A',oscillators=new Set();
+ let input={left:false,right:false,jump:false,hit:false},pointerHolds=new Map(),paused=false,trial=null,lastStats=-1;
+ let simA=P.createState(),simB=P.createState(),clock=new P.FrameClock(),uiAnims=[];
+ let uiState={A:{count:0,remaining:0},B:{count:0,remaining:0}},hovered=false;
+ const sceneCopy={
+  movement:'Speed up, let go, then turn around. The flags help you see how fast A and B start and stop.',
+  jumping:'Jump over the two gaps, or click Play the same moves. Two settings can forgive a jump press that is a little late or early.',
+  impact:'Hit sends a hit to the target from any distance. Compare the pause, the push, the sound, and the hit effects.',
+  camera:'Move past the posts to see the camera lag behind. Hit can add a quick shake. The hit signal stays the same.',
+  interface:'Point at, tab to, or click Collect token. Both cards get the same clicks, so only the one setting is different.'
+ };
+ const altValues={maxSpeed:360,acceleration:2800,deceleration:800,turnResponse:.5,jumpImpulse:600,gravity:2300,airControl:.2,coyoteMs:0,bufferMs:0,hitPauseMs:100,knockback:350,soundDelayMs:150,visualStrength:.2,cameraFollowMs:500,cameraShakePx:4,uiDurationMs:500,uiEasing:'linear',uiHoverPx:8,uiConfirmMs:1400};
+ const firstParameter={movement:'acceleration',jumping:'bufferMs',impact:'hitPauseMs',camera:'cameraFollowMs',interface:'uiDurationMs'};
+ const easing={linear:'linear',easeOut:'cubic-bezier(0.16,1,0.3,1)',easeInOut:'cubic-bezier(0.65,0,0.35,1)',back:'cubic-bezier(0.34,1.35,0.64,1)'};
+ const payload=()=>state.tools.game_feel.payload;
+ const bSettings=()=>D.deriveB(payload());
+ function toast(message,error=false){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').className='toast'+(error?' error':'');$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,6000);}
+ function announceSave(message,detail,isError=false){$('saveStatus').textContent=message;$('saveStatus').className='status'+(isError?' error':'');$('mobileSaveStatus').textContent=message;$('mobileSaveStatus').className='mobile-save-status'+(isError?' error':'');$('storageDetail').textContent=detail||message;}
+ function saveBrowser(){
+  clearTimeout(savedTimer);
+  if(storageProtected){announceSave('Old browser save kept safe','Your earlier browser save could not be opened, so it was kept as is. Download the old save before you replace it.',true);return false;}
+  try{D.validateSnapshot(state);localStorage.setItem(STORE,JSON.stringify(state));const stamp=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});announceSave('Saved in this browser · '+stamp,'Saved in this browser at '+stamp+'. It can still get erased. Click Save project file to keep a copy on your computer.');return true;}
+  catch(error){announceSave('Cannot save in this browser','Browser save did not work: '+error.message+' Your work is still open here. Click Save project file to keep it.',true);return false;}
+ }
+ function scheduleSave(){clearTimeout(savedTimer);$('saveStatus').textContent='Saving in this browser...';$('mobileSaveStatus').textContent='Saving in this browser...';savedTimer=setTimeout(saveBrowser,320);}
+ function mutate(change,options={}){
+  try{const candidate=D.clone(state);change(candidate.tools.game_feel.payload,candidate.project,candidate);D.touch(candidate);state=candidate;scheduleSave();renderIdentity();if(options.reset)resetSimulation();if(options.refresh)renderWorkshop();if(page==='tuning')renderReport();return true;}
+  catch(error){toast(error.message,true);return false;}
+ }
+ function askConfirm(heading,message,action,label='Continue'){$('confirmTitle').textContent=heading;$('confirmText').textContent=message;$('confirmApply').textContent=label;confirmCallback=action;$('confirmDialog').showModal();}
+ $('confirmCancel').addEventListener('click',()=>{$('confirmDialog').close();confirmCallback=null;});
+ $('confirmApply').addEventListener('click',()=>{const fn=confirmCallback;confirmCallback=null;$('confirmDialog').close();if(fn)fn();});
+ $('confirmDialog').addEventListener('cancel',()=>{confirmCallback=null;});
+ function currentUIValid(){const fields=document.querySelectorAll('input:not([type=file]),select,textarea');for(const f of fields){if(!f.checkValidity()){toast('Please fix the marked box before you save or switch projects.',true);f.reportValidity();return false;}}return true;}
+ function filename(suffix,extension){return (state.project.name.trim()||'Avalon_Game_Feel').replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,70)+'_'+suffix+'.'+extension;}
+ function download(content,name,type){const blob=new Blob([content],{type:type||'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=el('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+ function exportProject(){
+  if(!currentUIValid())return;
+  try{D.validateSnapshot(state);const text=JSON.stringify(state,null,2);download(text,filename('project','json'),'application/json');lastExport=JSON.stringify(state);toast(noteDraftDirty?'Your project file is downloading. The note you are writing is not in it. Save the note on the Test notes page first.':'Your project file is downloading. Keep it as your newest copy.');}
+  catch(error){toast('Could not save the file: '+error.message,true);}
+ }
+ function renderIdentity(){
+  $('railName').textContent=state.project.name||'Untitled project';$('railVersion').textContent=state.project.gameVersion?'Game version '+state.project.gameVersion:'No game version yet';
+  $('projectIdentity').textContent=state.project.id;
+  $('moduleRows').replaceChildren();
+  for(const [key,module] of Object.entries(state.tools)){const r=el('tr');r.append(el('td',key),el('td',String(module.moduleVersion)),el('td',key==='game_feel'?'You can edit it here':'Kept as is. This tool does not read it.'));$('moduleRows').append(r);}
+  $('noteCounter').textContent=payload().notes.length+' note'+(payload().notes.length===1?'':'s');
+ }
+ function replacePreview(candidate,label,after){
+  if(!currentUIValid())return;
+  let info;try{D.validateSnapshot(candidate);info=D.differencePreview(state,candidate);}catch(error){toast('Could not open the file. '+error.message,true);return;}
+  pendingReplacement={candidate:D.clone(candidate),label,after};
+  $('reviewTitle').textContent=label;
+  const host=$('reviewBody');host.replaceChildren();
+  host.append(el('p','If you continue, this file replaces all of your current work. The two do not get mixed together.'));
+  const ids=el('div',undefined,'two');
+  for(const [heading,data] of [['Your current work',info.current],['File you are opening',info.incoming]]){const card=el('div',undefined,'panel');card.append(el('h4',heading),el('p',data.name||'Untitled project'),el('p','Game version: '+(data.gameVersion||'Not specified'),'fine'),el('p',data.id,'identity mono'));ids.append(card);}
+  host.append(ids,el('p',info.sameIdentity?'Same project ID. Check what changed before you replace it.':'Different project IDs. These are different projects, even if the names match.','callout'));
+  if(info.profileChanged)host.append(el('p','The project info is different. The info in the file will replace yours.','fine'));
+  const wrap=el('div',undefined,'table-wrap'),table=el('table'),head=el('thead'),hr=el('tr');for(const s of ['Tool data','Now','In file','Change'])hr.append(el('th',s));head.append(hr);table.append(head);const body=el('tbody');
+  for(const m of info.modules){const r=el('tr');r.append(el('td',m.key),el('td',m.currentVersion==null?'None':'v'+m.currentVersion),el('td',m.incomingVersion==null?'None':'v'+m.incomingVersion),el('td',m.status));body.append(r);}table.append(body);wrap.append(table);host.append(wrap);
+  if(info.absentModules.length)host.append(el('p','Tool data that is not in the file: '+info.absentModules.join(', ')+'. It will be removed if you replace your work.','callout warn'));
+  if(info.ownModuleMissing)host.append(el('p','The file has no Game Feel data (game_feel). If you continue, this tool adds new Game Feel data and keeps everything else in the file.','callout'));
+  if(noteDraftDirty)host.append(el('p','You have a note you did not save. Replacing your work will erase it. Click Cancel to save it first.','callout warn'));
+  if(storageProtected)host.append(el('p','An old browser save could not be opened, so it is being kept safe. You can download it on the Save & open files page. Browser saving stays paused until you choose to replace that old save.','callout warn'));
+  host.append(el('p','Save a backup first saves your project file. A note you have not saved yet is not included.','fine'));
+  $('dialogApply').textContent='Replace my work';$('reviewDialog').showModal();
+ }
+ $('dialogCancel').addEventListener('click',()=>{pendingReplacement=null;$('reviewDialog').close();});
+ $('reviewDialog').addEventListener('cancel',()=>{pendingReplacement=null;});
+ $('dialogBackup').addEventListener('click',exportProject);
+ $('dialogApply').addEventListener('click',()=>{
+  if(!pendingReplacement)return;
+  try{
+   const {candidate,label,after}=pendingReplacement;
+   D.validateSnapshot(candidate);
+   const addedOwnModule=!Object.prototype.hasOwnProperty.call(candidate.tools,'game_feel');
+   if(addedOwnModule)candidate.tools.game_feel={moduleVersion:1,updatedAt:new Date().toISOString(),payload:D.defaultPayload()};
+   D.validateSnapshot(candidate);state=candidate;pendingReplacement=null;$('reviewDialog').close();clearTimeout(savedTimer);lastExport=label==='Open project file'&&!addedOwnModule?JSON.stringify(state):'';
+   clearNoteDraft();resetSimulation();renderAll();saveBrowser();if(after)after();else setPage('workshop');toast('Done. Your work was replaced with the file. Its project ID and all tool data were kept.');
+  }catch(error){toast('Your work was not replaced. '+error.message,true);}
+ });
+ async function readProjectFile(file){
+  if(!file)return;
+  if(file.size>D.LIMITS.bytes){toast('Could not open the file. It is too big. The limit is 2 MiB.',true);return;}
+  try{const candidate=D.parseSnapshot(await file.text());replacePreview(candidate,'Open project file');}catch(error){toast('Could not open the file. '+error.message,true);}
+ }
+ $('importFile').addEventListener('change',async event=>{await readProjectFile(event.target.files[0]);event.target.value='';});
+ document.querySelectorAll('[data-action="import"]').forEach(b=>b.addEventListener('click',()=>$('importFile').click()));
+ document.querySelectorAll('[data-action="export"]').forEach(b=>b.addEventListener('click',exportProject));
+ function createProject(example=false,guide=false){const candidate=D.newSnapshot(example);candidate.tools.game_feel.payload.accessibility.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;if(guide)candidate.tools.game_feel.payload.exerciseStep=1;replacePreview(candidate,guide?'Start the guided tour':example?'Try an example':'Start from scratch',()=>{setPage(guide||example?'workshop':'project');});}
+ $('loadExample').addEventListener('click',()=>createProject(true));
+ $('startGuide').addEventListener('click',()=>createProject(true,true));
+ $('newProject').addEventListener('click',()=>createProject(false));
+ $('newProject2').addEventListener('click',()=>createProject(false));
+ $('continueWork').addEventListener('click',()=>setPage('workshop'));
+ $('duplicateProject').addEventListener('click',()=>{const copy=D.clone(state);copy.project.id=D.uuid();copy.project.name=(copy.project.name||'Untitled project')+' copy';copy.tools.game_feel.updatedAt=new Date().toISOString();replacePreview(copy,'Make a copy as a new project');});
+ $('retrySave').addEventListener('click',()=>{if(storageProtected)askConfirm('Replace the old browser save?','Download the old save first if you want to keep it. If you continue, the old save that could not be opened is replaced with your current work.',()=>{storageProtected=false;saveBrowser();},'Replace old save');else saveBrowser();});
+ function setPage(next){
+  page=next;clearHeld();clock.reset();
+  document.querySelectorAll('.page').forEach(s=>s.hidden=s.id!=='page-'+next);
+  document.querySelectorAll('[data-page]').forEach(b=>{b.classList.toggle('active',b.dataset.page===next);if(b.dataset.page===next)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+  if(next==='notes'){if(!noteDraftDirty&&!editingNoteId)captureCurrent();renderNotes();}
+  if(next==='tuning')renderReport();
+  if(next==='project')renderProfile();
+  if(next==='workshop')renderWorkshop();
+  if(next!=='workshop')stopAudio();
+  window.scrollTo({top:0,behavior:'instant'});
+ }
+ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+ const profileDefs=[
+  ['name','Project name','text','Your game or working title'],['gameVersion','Game version','text','Example: prototype 0.2'],
+  ['platform','Platform','text','Example: Roblox, PC, mobile'],['engine','Game engine','text','Example: Roblox Studio, Unity, Godot'],
+  ['genre','Game type (genre)','text','Example: Precision platformer'],['targetAudience','Who it is for','text','Who are you making this game for?'],
+  ['stage','How far along','text','Example: idea, prototype, beta, live'],['sessionLengthMinutes','How long one play session lasts','number','Leave blank if not sure']
+ ];
+ function buildProfile(){
+  const host=$('profileFields');host.replaceChildren();
+  for(const [key,label,type,placeholder] of profileDefs){
+   const f=el('div',undefined,'field'),l=el('label',label+(key==='sessionLengthMinutes'?' (minutes)':''));l.htmlFor='profile-'+key;const i=el('input');i.id='profile-'+key;i.type=type;i.placeholder=placeholder;i.dataset.profile=key;
+   if(type==='number'){i.min='0';i.max='100000';i.step='any';}else{i.maxLength=2000;}
+   i.addEventListener('input',()=>{if(!i.checkValidity())return;let v=i.value;if(type==='number')v=i.value===''?null:Number(i.value);mutate((p,profile)=>{profile[key]=v;});});
+   f.append(l,i);host.append(f);
+  }
+  const devices=el('div',undefined,'field full');devices.append(el('label','Devices players will use'));const input=el('input');input.id='profile-targetDevices';input.maxLength=50049;input.placeholder='Desktop, phone, tablet';input.setAttribute('aria-label','Devices players will use, with commas between them');input.addEventListener('input',()=>{const values=input.value.split(',').map(x=>x.trim()).filter(Boolean);input.setCustomValidity(values.length>50||values.some(x=>x.length>1000)?'List up to 50 devices. Each one can be up to 1,000 characters.':'');if(input.checkValidity())mutate((p,profile)=>profile.targetDevices=values);});devices.append(input,el('small','Put commas between devices. You can list up to 50. Leave blank if not sure.','hint'));host.append(devices);
+  const pillars=el('div',undefined,'field full');const lab=el('label','Design pillars (the big ideas your game is built on)');lab.htmlFor='profile-designPillars';const area=el('textarea');area.id='profile-designPillars';area.maxLength=50049;area.placeholder='One idea per line, like: Fast and fair';area.addEventListener('input',()=>{const values=area.value.split('\n').map(x=>x.trim()).filter(Boolean);area.setCustomValidity(values.length>50||values.some(x=>x.length>1000)?'List up to 50 pillars. Each one can be up to 1,000 characters.':'');if(area.checkValidity())mutate((p,profile)=>profile.designPillars=values);});pillars.append(lab,area);host.append(pillars);
+ }
+ function renderProfile(){for(const [key] of profileDefs)$('profile-'+key).value=state.project[key]===null?'':state.project[key];$('profile-targetDevices').value=state.project.targetDevices.join(', ');$('profile-designPillars').value=state.project.designPillars.join('\n');renderIdentity();}
+ function selectOption(select,value,text){const o=el('option',text===undefined?value:text);o.value=value;select.append(o);}
+ function buildDemoTabs(){
+  for(const demo of D.DEMOS){const b=el('button',title(demo));b.id='demo-tab-'+demo;b.dataset.demo=demo;b.setAttribute('role','tab');b.setAttribute('aria-controls','demo-panel');b.addEventListener('click',()=>changeDemo(demo));$('demoTabs').append(b);}
+  $('demoTabs').addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const all=[...$('demoTabs').children];let ix=all.indexOf(document.activeElement);if(e.key==='Home')ix=0;else if(e.key==='End')ix=all.length-1;else ix=(ix+(e.key==='ArrowRight'?1:-1)+all.length)%all.length;changeDemo(all[ix].dataset.demo);all[ix].focus();});
+ }
+ function changeDemo(demo){
+  mutate(p=>{p.activeDemo=demo;const key=firstParameter[demo];if(D.PARAM_BY_KEY[p.comparison.parameter].group!==demo){p.comparison.parameter=key;p.comparison.value=alternate(key,p.settings[key]);}},{reset:true});renderWorkshop();
+ }
+ function alternate(key,current){const p=D.PARAM_BY_KEY[key];if(altValues[key]!==current)return altValues[key];return p.options?p.options.find(v=>v!==current):p.default===current?p.min:p.default;}
+ function makeValueControl(meta,current,id,onChange){
+  let n;if(meta.options){n=el('select');for(const option of meta.options)selectOption(n,option,option==='easeOut'?'Ease out':option==='easeInOut'?'Ease in and out':option==='back'?'Small overshoot':'Linear');}
+  else{n=el('input');n.type='number';n.min=meta.min;n.max=meta.max;n.step='any';n.required=true;}
+  n.id=id;n.value=current;n.setAttribute('aria-label',meta.label+' '+meta.unit);
+  n.addEventListener('change',()=>{if(!meta.options&&(n.value===''||!Number.isFinite(Number(n.value))||!n.checkValidity())){n.setCustomValidity('Pick a number from '+meta.min+' to '+meta.max+'.');n.reportValidity();return;}n.setCustomValidity('');const v=meta.options?n.value:Number(n.value);onChange(v);});
+  n.addEventListener('input',()=>n.setCustomValidity(''));
+  return n;
+ }
+ function buildParamControls(){
+  const demo=payload().activeDemo,host=$('paramControls');host.replaceChildren();
+  for(const meta of D.PARAMS.filter(p=>p.group===demo)){
+   const p=el('div',undefined,'param'),head=el('div',undefined,'param-top'),label=el('label',meta.label);label.htmlFor='param-'+meta.key;head.append(label,el('span',meta.unit,'unit'));p.append(head);
+   const set=v=>{if(mutate(data=>data.settings[meta.key]=v,{reset:true})){const range=$('range-'+meta.key);if(range)range.value=v;$('param-'+meta.key).value=v;$('param-'+meta.key).setCustomValidity('');renderComparison();renderAdvice();updateUIStyles();}};
+   const number=makeValueControl(meta,payload().settings[meta.key],'param-'+meta.key,set);
+   if(meta.options)p.append(number);else{const row=el('div',undefined,'numberline'),range=el('input');range.type='range';range.min=meta.min;range.max=meta.max;range.step=meta.step;range.value=payload().settings[meta.key];range.id='range-'+meta.key;range.setAttribute('aria-label',meta.label+' slider');range.addEventListener('input',()=>set(Number(range.value)));row.append(range,number);p.append(row);}
+   const details=el('details'),summary=el('summary','What does this do?'),copy=C.controls[meta.key];details.append(summary,el('p',copy.change),el('p','Good for: '+copy.suits),el('p','Watch out: '+copy.tradeoff));p.append(details);host.append(p);
+  }
+ }
+ function renderComparison(){
+  const data=payload(),meta=D.PARAM_BY_KEY[data.comparison.parameter];
+  $('compareEnabled').checked=data.comparison.enabled;$('laneB').hidden=!data.comparison.enabled;$('lanes').classList.toggle('solo',!data.comparison.enabled);$('compareParam').replaceChildren();
+  for(const demo of D.DEMOS){const group=el('optgroup');group.label=title(demo);for(const m of D.PARAMS.filter(x=>x.group===demo)){const o=el('option',m.label);o.value=m.key;group.append(o);}$('compareParam').append(group);}
+  $('compareParam').value=meta.key;$('compareValueLabel').textContent='B value ('+meta.unit+')';
+  const existingControl=$('compareValue');
+  if(existingControl&&existingControl.dataset.parameter===meta.key){existingControl.value=data.comparison.value;existingControl.setCustomValidity('');}
+  else{const control=makeValueControl(meta,data.comparison.value,'compareValue',v=>{mutate(p=>p.comparison.value=v,{reset:true});renderComparison();renderAdvice();updateUIStyles();});control.dataset.parameter=meta.key;$('compareValueHost').replaceChildren(control);}
+  $('valueA').textContent=meta.label+': '+val(data.settings[meta.key],meta.unit);$('valueB').textContent=val(data.comparison.value,meta.unit);
+  const equal=data.settings[meta.key]===data.comparison.value;
+  $('compareExplanation').textContent=!data.comparison.enabled?'B is hidden. Turn on Show B to compare.':equal?'A and B are the same right now. Pick a different B value to see a change.':'Only '+meta.label.toLowerCase()+' is different in B. Changing any other A setting changes B too. Click Write a note about this to save what you found.';
+  if(meta.group!==data.activeDemo)$('compareExplanation').textContent+=' This setting belongs to '+title(meta.group)+'. Open that demo to see what it does.';
+  $('promoteB').disabled=!data.comparison.enabled||equal;
+  $('audioLane').querySelector('option[value="B"]').disabled=!data.comparison.enabled;if(!data.comparison.enabled&&audioLane==='B'){audioLane='A';$('audioLane').value='A';}
+ }
+ $('compareEnabled').addEventListener('change',e=>{mutate(p=>p.comparison.enabled=e.target.checked,{reset:true});renderComparison();});
+ $('compareParam').addEventListener('change',e=>{const key=e.target.value;mutate(p=>{p.comparison.parameter=key;p.comparison.value=alternate(key,p.settings[key]);},{reset:true});renderComparison();updateUIStyles();});
+ $('promoteB').addEventListener('click',()=>{const key=payload().comparison.parameter,old=payload().settings[key];mutate(p=>{p.settings[key]=p.comparison.value;p.comparison.value=old;},{reset:true});renderWorkshop();toast('B is now A. The old A value is now the one thing B changes.');});
+ $('resetGroup').addEventListener('click',()=>askConfirm('Reset '+title(payload().activeDemo)+' settings?','This puts these settings back to their starting values and restarts A and B. Your notes and other settings stay the same.',()=>{mutate(p=>{for(const m of D.PARAMS.filter(x=>x.group===p.activeDemo))p.settings[m.key]=m.default;},{reset:true});renderWorkshop();},'Reset settings'));
+ function renderPreset(){
+  const p=C.presets[$('presetSelect').value];$('presetDescription').textContent=p.description;$('presetValues').replaceChildren();
+  for(const m of D.PARAMS){const row=el('tr');row.append(el('td',m.label),el('td',val(p.settings[m.key],m.unit)));$('presetValues').append(row);}
+ }
+ $('presetSelect').addEventListener('change',renderPreset);
+ $('applyPreset').addEventListener('click',()=>{const preset=C.presets[$('presetSelect').value];askConfirm('Use '+preset.name+'?','This replaces all A settings with the values in the table and restarts A and B. Your saved notes keep their own settings.',()=>{mutate(p=>p.settings=D.clone(preset.settings),{reset:true});renderWorkshop();toast(preset.name+' is on. It is just an example to start from.');},'Use this setup');});
+ $('intent').addEventListener('input',e=>mutate(p=>p.intent=e.target.value));
+ $('mappingNotes').addEventListener('input',e=>mutate(p=>p.mappingNotes=e.target.value));
+ function renderGuide(){
+  const step=payload().exerciseStep;
+  const items={1:['Start with a goal','This example wants quick jumps that forgive small mistakes. Click Play the same moves. Watch how fast each side gets going.'],2:['Give B one different value','Set A speed-up to 600 px/s² and B to 2,400. Keep top speed at 260 px/s. Click Restart A and B, then Play the same moves.'],3:['Try an early jump press','Open Jumping. Set A early jump memory to 180 ms. Then click Test an early jump press. B uses 0 ms. Which one jumps when it lands?'],4:['Write why, then save','Pick which one felt better and write what you saw. Look at the Tuning sheet. Then click Save project file before you close.']};
+  $('guide').hidden=step===0;if(!step)return;$('guideStep').textContent=step;$('guideTitle').textContent=items[step][0];$('guideText').textContent=items[step][1];$('guideNext').textContent=step===4?'Finish the tour':'Next step';
+ }
+ $('guideNext').addEventListener('click',()=>{const n=payload().exerciseStep;mutate(p=>p.exerciseStep=n===4?0:n+1);renderGuide();});
+ $('guideSkip').addEventListener('click',()=>{mutate(p=>p.exerciseStep=0);renderGuide();});
+ function renderAdvice(){
+  const s=payload().settings,host=$('recommendations');host.replaceChildren();
+  function add(kind,heading,text){const n=el('div',undefined,'recommendation');n.append(el('strong',kind+' / '+heading),el('span',text));host.append(n);}
+  add('Math','Time to top speed',val(s.maxSpeed/s.acceleration,'s')+' = '+s.maxSpeed+' px/s ÷ '+s.acceleration+' px/s². Starting still, holding one direction, on flat ground.');
+  add('Math','Stopping distance',val(s.maxSpeed*s.maxSpeed/(2*s.deceleration),'px')+' = speed² ÷ (2 × slow-down). A guess from '+s.maxSpeed+' px/s, with nothing in the way and no hit pause.');
+  add('Math','Best-case jump',val(s.jumpImpulse*s.jumpImpulse/(2*s.gravity),'px')+' high; '+val(s.jumpImpulse/s.gravity,'s')+' to the top. A smooth math guess using jump power '+s.jumpImpulse+' px/s and gravity '+s.gravity+' px/s². The demo result is a little different.');
+  if(s.maxSpeed/s.acceleration>.45)add('Tip','A slow start', 'It takes '+val(s.maxSpeed/s.acceleration,'s')+' to reach top speed. That is more than 0.45 s, a number picked for this tool. Check if a slow start fits your goal.');
+  if(s.bufferMs===0)add('Tip','Early jump presses are ignored','An early jump memory of 0 ms forgets a jump press made just before landing. Try 120 to 180 ms if you want easier repeat jumps.');
+  if(s.coyoteMs>150)add('Tip','Check late ledge jumps','The '+s.coyoteMs+' ms late jump window is more than 150 ms, a number picked for this tool. Ask testers if jumping from thin air looks OK.');
+  if(s.cameraShakePx>0)add('Tip','Check comfort with shake off','A uses '+s.cameraShakePx+' px of shake. Compare it with 0 px. The HIT label stays either way. Less motion always turns shake off.');
+  if(s.soundDelayMs>=100)add('Tip','Check the sound delay','The sound plays '+s.soundDelayMs+' ms after the hit. That is more than 100 ms, a number picked for this tool. Check that the gap is on purpose.');
+  if(s.cameraFollowMs>400)add('Tip','Check the view ahead','A camera follow time of '+s.cameraFollowMs+' ms is more than 400 ms, a number picked for this tool. Watch if the camera catches up before the next obstacle.');
+  add('Remember','No single right answer','These tips are just things to check. To pick a winner, write your goal, how you tested, and what you saw. This tool does not give a fun score.');
+ }
+ function renderWorkshop(){
+  const data=payload(),demo=data.activeDemo;
+  document.querySelectorAll('[data-demo]').forEach(b=>{const active=b.dataset.demo===demo;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});
+  $('demo-panel').setAttribute('aria-labelledby','demo-tab-'+demo);$('sceneBadge').textContent=title(demo);$('sceneNote').textContent=sceneCopy[demo];$('canvasA').hidden=$('canvasB').hidden=demo==='interface';$('interfaceA').hidden=$('interfaceB').hidden=demo!=='interface';$('touchControls').hidden=demo==='interface';$('keyHint').hidden=demo==='interface';$('bufferTest').hidden=$('edgeTest').hidden=demo!=='jumping';$('shakeTest').hidden=!['impact','camera'].includes(demo);$('hoverTest').hidden=demo!=='interface';$('runTrial').textContent=demo==='interface'?'Collect in both cards':'Play the same moves';
+  $('intent').value=data.intent;$('reducedMotion').checked=data.accessibility.reducedMotion;$('muteAudio').checked=data.accessibility.mute;$('volume').value=data.accessibility.volume;$('volumeLabel').textContent=Math.round(data.accessibility.volume*100)+'%';document.body.classList.toggle('reduced',data.accessibility.reducedMotion);
+  buildParamControls();renderComparison();renderGuide();renderPreset();renderAdvice();updateUIStyles();draw();updateStats();
+ }
+ function clearHeld(){input={left:false,right:false,jump:false,hit:false};pointerHolds.clear();document.querySelectorAll('.touch-btn').forEach(b=>b.classList.remove('held'));}
+ function stopAudio(){for(const o of oscillators){try{o.stop();}catch(error){}}oscillators.clear();}
+ function clearUI(){for(const a of uiAnims){try{a.cancel();}catch(error){}}uiAnims=[];uiState={A:{count:0,remaining:0},B:{count:0,remaining:0}};hovered=false;for(const lane of ['A','B']){const card=$('uiCard'+lane),action=$('uiAction'+lane);card.style.transitionProperty='none';action.style.transitionProperty='none';action.classList.remove('confirmed');action.textContent='Collect token';$('uiFeedback'+lane).textContent='Ready to click';$('uiStatus'+lane).textContent='0 tokens collected';card.style.transform='translateY(0px)';void card.offsetWidth;card.style.transitionProperty='transform,box-shadow,border-color';action.style.transitionProperty='background,transform';}}
+ function resetSimulation(scenario='default'){
+  clearHeld();stopAudio();clearUI();simA=P.createState(payload().activeDemo,scenario);simB=P.createState(payload().activeDemo,scenario);clock.reset();trial=null;paused=false;lastStats=-1;$('pauseSim').textContent='Pause';$('pauseSim').setAttribute('aria-pressed','false');$('protocolStatus').textContent='Free play. Click Restart A and B any time to line them up again.';draw();updateStats();
+ }
+ $('resetSim').addEventListener('click',()=>{resetSimulation();toast('A and B restarted from the same spot. Waiting moves and effects were cleared.');});
+ function setPaused(next){
+  paused=next;clearHeld();clock.reset();$('pauseSim').textContent=paused?'Resume':'Pause';$('pauseSim').setAttribute('aria-pressed',String(paused));for(const a of uiAnims){try{if(paused)a.pause();else a.play();}catch(error){}}
+  if(paused)stopAudio();
+ }
+ $('pauseSim').addEventListener('click',()=>setPaused(!paused));
+ function startManual(){if(trial){trial=null;$('protocolStatus').textContent='Free play. A and B both get your next move.';}if(paused)setPaused(false);}
+ function queueAction(kind){startManual();input[kind]=true;}
+ $('playSurface').addEventListener('pointerdown',e=>{if(e.target.tagName==='CANVAS'){$('playSurface').focus({preventScroll:true});startManual();}});
+ $('playSurface').addEventListener('keydown',e=>{
+  if(e.target!==$('playSurface')&&e.target.tagName!=='CANVAS')return;
+  const k=e.key.toLowerCase();if(!['a','d','arrowleft','arrowright',' ','w','arrowup','x','r','p'].includes(k))return;e.preventDefault();
+  if(k==='p'&&!e.repeat){setPaused(!paused);return;}if(k==='r'&&!e.repeat){resetSimulation();return;}startManual();
+  if(['a','arrowleft'].includes(k))input.left=true;if(['d','arrowright'].includes(k))input.right=true;
+  if([' ','w','arrowup'].includes(k)&&!e.repeat)input.jump=true;if(k==='x'&&!e.repeat)input.hit=true;
+ });
+ document.addEventListener('keyup',e=>{const k=e.key.toLowerCase();if(['a','arrowleft'].includes(k))input.left=false;if(['d','arrowright'].includes(k))input.right=false;});
+ $('playSurface').addEventListener('focusout',e=>{if(!$('playSurface').contains(e.relatedTarget))clearHeld();});
+ function attachHold(id,direction){
+  const b=$(id);
+  const release=e=>{pointerHolds.delete(e.pointerId);input[direction]=[...pointerHolds.values()].includes(direction);b.classList.toggle('held',input[direction]);};
+  b.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();startManual();pointerHolds.set(e.pointerId,direction);input[direction]=true;b.classList.add('held');try{b.setPointerCapture(e.pointerId);}catch(error){}});
+  b.addEventListener('pointerup',release);b.addEventListener('pointercancel',release);b.addEventListener('lostpointercapture',release);
+  b.addEventListener('keydown',e=>{if([' ','Enter'].includes(e.key)){e.preventDefault();startManual();input[direction]=true;b.classList.add('held');}});
+  b.addEventListener('keyup',e=>{if([' ','Enter'].includes(e.key)){e.preventDefault();input[direction]=false;b.classList.remove('held');}});
+  b.addEventListener('blur',()=>{input[direction]=false;b.classList.remove('held');});
+ }
+ attachHold('leftBtn','left');attachHold('rightBtn','right');
+ for(const [id,kind] of [['jumpBtn','jump'],['hitBtn','hit']]){$(id).addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();queueAction(kind);});$(id).addEventListener('click',e=>{if(e.detail===0)queueAction(kind);});}
+ window.addEventListener('blur',()=>{clearHeld();stopAudio();});
+ function handleVisibility(){
+  clock.setHidden(document.hidden);clearHeld();stopAudio();
+  if(document.hidden){simA.pendingSoundTimes=[];simB.pendingSoundTimes=[];for(const a of uiAnims){try{a.pause();}catch(error){}}saveBrowser();}
+  else{for(const a of uiAnims){try{if(!paused)a.play();}catch(error){}}$('protocolStatus').textContent='Welcome back. The time you were away was skipped, and held keys were let go.';}
+ }
+ document.addEventListener('visibilitychange',handleVisibility);
+ function runTrial(kind='standard'){
+  const demo=payload().activeDemo;resetSimulation(kind==='buffer'?'buffer':kind==='edge'?'edge':'default');
+  if(demo==='interface'){triggerUI();$('protocolStatus').textContent='The same click went to A and B. Point at or tab to either card to compare the hover lift.';return;}
+  const duration=kind==='buffer'?.9:kind==='edge'?1.6:demo==='impact'?1.3:demo==='jumping'?2.3:3.4;
+  trial={kind,duration,elapsed:0,jumpSent:false,hitSent:false,edgeSent:false};setPaused(false);
+  const labels={buffer:'Early jump test: one jump press at the start of a short fall. With normal gravity, it lands about 125 ms later. If the press is remembered, it jumps on landing.',edge:'Ledge test: run right off the ledge, then press jump about 40 ms after leaving it. This tests the late jump window, even with a slow speed-up.'};
+  $('protocolStatus').textContent=labels[kind]||(demo==='movement'||demo==='camera'?'Same moves for both: right for 1.4 s, let go for 0.6 s, left for 0.8 s, then let go for 0.6 s.':demo==='jumping'?'Same moves for both: one jump from standing still. Watch the top of the jump and the landing.':'Same moves for both: one hit at 0.1 s. Compare the pause, the push, the hit effects, and the sound.');
+ }
+ $('runTrial').addEventListener('click',()=>runTrial());
+ $('bufferTest').addEventListener('click',()=>{const a=payload().settings.bufferMs;mutate(p=>{p.comparison.enabled=true;p.comparison.parameter='bufferMs';p.comparison.value=a===0?180:0;});renderComparison();runTrial('buffer');});
+ $('edgeTest').addEventListener('click',()=>{const a=payload().settings.coyoteMs;mutate(p=>{p.comparison.enabled=true;p.comparison.parameter='coyoteMs';p.comparison.value=a===0?150:0;});renderComparison();runTrial('edge');});
+ $('shakeTest').addEventListener('click',()=>{const a=payload().settings.cameraShakePx;mutate(p=>{p.comparison.enabled=true;p.comparison.parameter='cameraShakePx';p.comparison.value=a===0?4:0;});renderComparison();resetSimulation();trial={kind:'hit',duration:1,elapsed:0,hitSent:false};$('protocolStatus').textContent='Same hit, only the shake is different. The hit count and sound do not depend on the shake.';});
+ function trialInput(dt){
+  const result={axis:0,jumpPressed:false,hitPressed:false};if(!trial)return result;
+  const demo=payload().activeDemo,t=trial.elapsed;trial.elapsed+=dt;
+  if(trial.kind==='buffer'){if(!trial.jumpSent){result.jumpPressed=true;trial.jumpSent=true;}}
+  else if(trial.kind==='edge'){result.axis=1;if(!simA.grounded&&!trial.jumpSent){trial.edgeElapsed=(trial.edgeElapsed||0)+dt;if(trial.edgeElapsed>=.04){result.jumpPressed=true;trial.jumpSent=true;}}}
+  else if(trial.kind==='hit'||demo==='impact'){if(t>=.1&&!trial.hitSent){result.hitPressed=true;trial.hitSent=true;}}
+  else if(demo==='jumping'){if(!trial.jumpSent){result.jumpPressed=true;trial.jumpSent=true;}}
+  else{result.axis=t<1.4?1:t<2?0:t<2.8?-1:0;}
+  return result;
+ }
+ function finishTrial(){
+  const kind=trial.kind;trial=null;setPaused(true);
+  const demo=payload().activeDemo;
+  if(kind==='buffer'||kind==='edge')$('protocolStatus').textContent='Result: A made '+simA.jumps+' jump'+(simA.jumps===1?'':'s')+'; B made '+simB.jumps+'. A last jump: '+(simA.lastJump||'none')+'. B last jump: '+(simB.lastJump||'none')+'. This uses your current gravity, speed, and timing settings.';
+  else if(demo==='jumping')$('protocolStatus').textContent='Highest point: A '+val(simA.peakHeight,'px')+'; B '+val(simB.peakHeight,'px')+'. Paused. Click Restart A and B or Play the same moves to try again.';
+  else if(kind==='hit'||demo==='impact')$('protocolStatus').textContent='Hits: A '+simA.hitCount+'; B '+simB.hitCount+'. Sounds: A '+simA.soundCount+'; B '+simB.soundCount+'. Shake moves the camera, not the hit signal.';
+  else $('protocolStatus').textContent='Done. Final spot: A '+val(simA.x,'px')+'; B '+val(simB.x,'px')+'. Both got the same moves, so any difference comes from the one setting B changes. Restart or play again.';
+ }
+ function stepWorkshop(dt){
+  if(paused)return;
+  const settings=payload().settings,bs=bSettings();
+  const shared=trial?trialInput(dt):{axis:(input.right?1:0)-(input.left?1:0),jumpPressed:input.jump,hitPressed:input.hit};input.jump=false;input.hit=false;
+  const soundsA=simA.soundCount,soundsB=simB.soundCount;
+  P.step(simA,settings,shared,dt,payload().activeDemo,payload().accessibility);P.step(simB,bs,shared,dt,payload().activeDemo,payload().accessibility);
+  if(simA.soundCount>soundsA)beep('A');if(simB.soundCount>soundsB)beep('B');
+  for(const lane of ['A','B'])if(uiState[lane].remaining>0){uiState[lane].remaining=Math.max(0,uiState[lane].remaining-dt);if(uiState[lane].remaining===0){$('uiAction'+lane).classList.remove('confirmed');$('uiAction'+lane).textContent='Collect again';$('uiFeedback'+lane).textContent='Done. Ready to click again';}}
+  if(trial&&trial.elapsed+1e-8>=trial.duration)finishTrial();
+ }
+ function draw(){if(typeof GFRender==='undefined')return;GFRender.draw($('canvasA'),simA,payload().settings,{scene:payload().activeDemo,lane:'A',reducedMotion:payload().accessibility.reducedMotion});if(payload().comparison.enabled)GFRender.draw($('canvasB'),simB,bSettings(),{scene:payload().activeDemo,lane:'B',reducedMotion:payload().accessibility.reducedMotion});}
+ function updateStats(){
+  const s=payload().settings,bs=bSettings(),demo=payload().activeDemo;
+  function stat(i,label,number,hint){$('metric'+i+'Label').textContent=label;$('metric'+i).textContent=number;$('metric'+i+'Hint').textContent=hint;}
+  if(demo==='jumping'){stat(1,'A jumps',String(simA.jumps),simA.lastJump||'No jump yet');stat(2,'B jumps',payload().comparison.enabled?String(simB.jumps):'Hidden',simB.lastJump||'No jump yet');stat(3,'A highest jump',val(simA.peakHeight,'px'),'Measured from the floor');}
+  else if(demo==='impact'){stat(1,'A hits',String(simA.hitCount),'Hits that landed');stat(2,'B hits',payload().comparison.enabled?String(simB.hitCount):'Hidden','Hits that landed');stat(3,'A target push',val(simA.dummyX-300,'px'),'How far the target moved');}
+  else if(demo==='camera'){stat(1,'A camera lag',val(Math.max(0,simA.x-170)-simA.cameraX,'px'),'How far the camera is behind');stat(2,'B camera lag',payload().comparison.enabled?val(Math.max(0,simB.x-170)-simB.cameraX,'px'):'Hidden','How far the camera is behind');stat(3,'Shake A / B',val(Math.hypot(simA.shakeX,simA.shakeY))+' / '+val(Math.hypot(simB.shakeX,simB.shakeY)),'How far the view moved, px');}
+  else if(demo==='interface'){stat(1,'A tokens',String(uiState.A.count),'Clicks that counted');stat(2,'B tokens',payload().comparison.enabled?String(uiState.B.count):'Hidden','Clicks that counted');stat(3,'A / B animation time',s.uiDurationMs+' / '+bs.uiDurationMs+' ms',payload().accessibility.reducedMotion?'Less motion is on':'Your setting');}
+  else{stat(1,'A speed',val(Math.abs(simA.vx),'px/s'),'Measured in this demo');stat(2,'B speed',payload().comparison.enabled?val(Math.abs(simB.vx),'px/s'):'Hidden','Measured in this demo');stat(3,s.maxSpeed===bs.maxSpeed?'Top speed (both)':'A / B top speed',s.maxSpeed===bs.maxSpeed?val(s.maxSpeed,'px/s'):s.maxSpeed+' / '+bs.maxSpeed+' px/s','Your setting');}
+  for(const [lane,ss] of [['A',simA],['B',simB]]){$('time'+lane).textContent=ss.t.toFixed(2)+' s';$('foot'+lane).textContent=demo==='interface'?'Same clicks · '+(uiState[lane].remaining>0?'done':'ready'):ss.hitPauseRemaining>0?'Hit pause':(ss.grounded?'On the ground':'In the air')+' · x '+Math.round(ss.x)+' px';}
+ }
+ function frame(now){if(page==='workshop'&&!document.hidden){clock.tick(now,stepWorkshop);draw();if(now-lastStats>90){updateStats();lastStats=now;}}else clock.reset();requestAnimationFrame(frame);}
+ function updateUIStyles(){
+  for(const [lane,s] of [['A',payload().settings],['B',bSettings()]]){const card=$('uiCard'+lane);card.style.transitionDuration=(payload().accessibility.reducedMotion?0:s.uiDurationMs)+'ms';card.style.transitionTimingFunction=easing[s.uiEasing];$('uiAction'+lane).style.transitionDuration=(payload().accessibility.reducedMotion?0:s.uiDurationMs)+'ms';card.style.transform=hovered&&!payload().accessibility.reducedMotion?'translateY(-'+s.uiHoverPx+'px)':'translateY(0px)';}
+ }
+ function setHover(on){hovered=on;updateUIStyles();}
+ function triggerUI(){
+  startManual();for(const a of uiAnims){try{a.cancel();}catch(error){}}uiAnims=[];
+  for(const [lane,s] of [['A',payload().settings],['B',bSettings()]]){
+   if(lane==='B'&&!payload().comparison.enabled)continue;
+   uiState[lane].count++;uiState[lane].remaining=s.uiConfirmMs/1000;$('uiAction'+lane).textContent='Token collected';$('uiAction'+lane).classList.add('confirmed');$('uiFeedback'+lane).textContent='Done message shows for '+s.uiConfirmMs+' ms';$('uiStatus'+lane).textContent=uiState[lane].count+' token'+(uiState[lane].count===1?'':'s')+' collected';
+   const dur=payload().accessibility.reducedMotion?0:s.uiDurationMs,card=$('uiCard'+lane);if(dur>0&&typeof card.animate==='function'){const target=hovered?-s.uiHoverPx:0;const animation=card.animate([{transform:'translateY('+(target+16)+'px)',opacity:.5},{transform:'translateY('+target+'px)',opacity:1}],{duration:dur,easing:easing[s.uiEasing],fill:'none'});uiAnims.push(animation);}
+  }
+  $('protocolStatus').textContent='The same click reached both cards. Tokens count right away. Animation time and confirm message time are two separate settings.';
+ }
+ for(const lane of ['A','B']){
+  $('uiAction'+lane).addEventListener('click',triggerUI);
+  $('uiCard'+lane).addEventListener('pointerenter',()=>setHover(true));$('uiCard'+lane).addEventListener('pointerleave',()=>setHover(false));
+  $('uiAction'+lane).addEventListener('focus',()=>setHover(true));$('uiAction'+lane).addEventListener('blur',()=>setHover(false));
+ }
+ $('hoverTest').addEventListener('click',()=>{setHover(!hovered);$('protocolStatus').textContent=hovered?'Hover is on for both cards. Click the button again to turn it off.':'Hover is off.';});
+ async function enableSound(){
+  try{const Type=window.AudioContext||window.webkitAudioContext;if(!Type)throw new Error('This browser cannot play sound here.');if(!audioContext)audioContext=new Type();await audioContext.resume();if(audioContext.state!=='running')throw new Error('The browser kept sound paused. Click Turn on sound again.');activeAudio=true;mutate(p=>p.accessibility.mute=false);$('muteAudio').checked=false;$('enableAudio').textContent='Sound is on';$('audioStatus').textContent='Sound is on. Playing sound from '+audioLane+'. Your speakers may add a tiny extra delay.';beep(audioLane);}
+  catch(error){activeAudio=false;$('audioStatus').textContent='Sound is not working: '+error.message+' You can still see the hit signals.';toast('Sound could not start. You can still see the hit signals.',true);}
+ }
+ function beep(lane){
+  if(!activeAudio||!audioContext||audioContext.state!=='running'||payload().accessibility.mute||audioLane!==lane||document.hidden)return;
+  try{const oscillator=audioContext.createOscillator(),gain=audioContext.createGain(),now=audioContext.currentTime;oscillator.type='triangle';oscillator.frequency.setValueAtTime(520,now);oscillator.frequency.exponentialRampToValueAtTime(260,now+.06);gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(payload().accessibility.volume*.12,now+.005);gain.gain.exponentialRampToValueAtTime(.0001,now+.065);oscillator.connect(gain);gain.connect(audioContext.destination);oscillators.add(oscillator);oscillator.onended=()=>{oscillators.delete(oscillator);oscillator.disconnect();gain.disconnect();};oscillator.start(now);oscillator.stop(now+.075);}
+  catch(error){$('audioStatus').textContent='Sound stopped working. You can still see the signals on screen.';}
+ }
+ $('enableAudio').addEventListener('click',enableSound);
+ $('muteAudio').addEventListener('change',e=>{mutate(p=>p.accessibility.mute=e.target.checked);if(e.target.checked){stopAudio();$('audioStatus').textContent='Muted. You can still see when a sound would play.';}else enableSound();});
+ $('volume').addEventListener('input',e=>{mutate(p=>p.accessibility.volume=Number(e.target.value));$('volumeLabel').textContent=Math.round(Number(e.target.value)*100)+'%';});
+ $('audioLane').addEventListener('change',e=>{audioLane=e.target.value;$('audioStatus').textContent=(activeAudio?'Sound is on. ':'Click Turn on sound to listen. ')+'Playing sound from '+audioLane+' only, so two sounds do not overlap.';});
+ $('reducedMotion').addEventListener('change',e=>{mutate(p=>p.accessibility.reducedMotion=e.target.checked,{reset:true});document.body.classList.toggle('reduced',e.target.checked);updateUIStyles();});
+ function captureCurrent(){
+  const p=payload();noteCapture={demo:p.activeDemo,parameter:p.comparison.parameter,aSettings:D.clone(p.settings),bSettings:bSettings(),intent:p.intent};editingNoteId=null;renderNoteContext();
+ }
+ function renderNoteContext(){
+  if(!noteCapture)return;const m=D.PARAM_BY_KEY[noteCapture.parameter];
+  $('noteContext').textContent=title(noteCapture.demo)+' / '+m.label+': A '+val(noteCapture.aSettings[m.key],m.unit)+'; B '+val(noteCapture.bSettings[m.key],m.unit)+'. Goal: '+(noteCapture.intent||'Not written yet.');
+  $('noteFormTitle').textContent=editingNoteId?'Edit note':'New note';$('noteCaptureBadge').textContent=editingNoteId?'Settings from when you first saved':'Current settings saved';$('saveNote').textContent=editingNoteId?'Save changes':'Save note';
+ }
+ function clearNoteDraft(){editingNoteId=null;noteDraftDirty=false;noteCapture=null;$('noteForm').reset();$('noteFormTitle').textContent='New note';$('saveNote').textContent='Save note';}
+ $('recordComparison').addEventListener('click',()=>{const next=()=>{clearNoteDraft();captureCurrent();setPage('notes');$('notePreferred').focus();};if(noteDraftDirty)askConfirm('Replace the note you did not save?','You have a note you did not save. If you continue, it is cleared and a new note starts with these settings.',next,'Replace note');else next();});
+ $('noteForm').addEventListener('input',()=>noteDraftDirty=true);
+ $('noteForm').addEventListener('change',()=>noteDraftDirty=true);
+ $('noteForm').addEventListener('submit',e=>{
+  e.preventDefault();if(!noteCapture)captureCurrent();
+  const preferred=$('notePreferred').value,reason=$('noteReason').value,observation=$('noteObservation').value;
+  if(!preferred&&!reason.trim()&&!observation.trim()){toast('Before you save, pick which felt better, or write what you saw or why.',true);$('noteObservation').focus();return;}
+  const existing=editingNoteId?payload().notes.find(n=>n.id===editingNoteId):null;
+  const record=Object.assign(D.clone(noteCapture),{id:existing?existing.id:D.uuid(),createdAt:existing?existing.createdAt:new Date().toISOString(),preferred,reason,observation,tester:$('noteTester').value,conditions:$('noteConditions').value});
+  const ok=mutate(p=>{if(existing){const index=p.notes.findIndex(n=>n.id===existing.id);p.notes[index]=record;}else p.notes.push(record);});
+  if(ok){clearNoteDraft();captureCurrent();renderNotes();toast(existing?'Note updated.':'Note saved with its settings.');}
+ });
+ $('cancelNote').addEventListener('click',()=>{const clear=()=>{clearNoteDraft();captureCurrent();};if(noteDraftDirty)askConfirm('Clear the note you are writing?','This only clears the form. Your saved notes stay.',clear,'Clear the form');else clear();});
+ function editNote(id){
+  const apply=()=>{const note=payload().notes.find(n=>n.id===id);if(!note)return;editingNoteId=id;noteCapture={demo:note.demo,parameter:note.parameter,aSettings:D.clone(note.aSettings),bSettings:D.clone(note.bSettings),intent:note.intent};$('notePreferred').value=note.preferred;$('noteTester').value=note.tester;$('noteConditions').value=note.conditions;$('noteObservation').value=note.observation;$('noteReason').value=note.reason;noteDraftDirty=false;renderNoteContext();$('noteFormTitle').scrollIntoView({block:'center'});$('noteObservation').focus({preventScroll:true});};
+  if(noteDraftDirty)askConfirm('Leave this note?','The note you are writing is not saved. If you continue, the saved note you picked opens instead.',apply,'Open saved note');else apply();
+ }
+ function noteCard(note,readOnly=false){
+  const box=el('article',undefined,'note-card'),m=D.PARAM_BY_KEY[note.parameter],top=el('div',undefined,'panel-title');top.append(el('h4',title(note.demo)+' / '+m.label),el('span',note.preferred==='No preference'?'No preference':note.preferred?note.preferred+' felt better':'No pick yet','badge'));box.append(top);
+  box.append(el('p','A '+val(note.aSettings[note.parameter],m.unit)+' · B '+val(note.bSettings[note.parameter],m.unit),'fine'));
+  box.append(el('div','Saved '+new Date(note.createdAt).toLocaleString()+' · Tester: '+(note.tester||'Not written'),'note-meta'));
+  for(const [heading,text] of [['Goal',note.intent],['How you tested',note.conditions],['What you saw',note.observation],['Why',note.reason]]){const p=el('p');p.append(el('strong',heading+': '),document.createTextNode(text||'Not written'));box.append(p);}
+  if(!readOnly){const row=el('div',undefined,'note-actions'),edit=el('button','Edit','btn small'),remove=el('button','Delete','btn small danger');edit.dataset.noteEdit=note.id;remove.dataset.noteDelete=note.id;edit.addEventListener('click',()=>editNote(note.id));remove.addEventListener('click',()=>askConfirm('Delete this note?','This removes the note from this project. A project file you saved before may still have it.',()=>{mutate(p=>p.notes=p.notes.filter(n=>n.id!==note.id));if(editingNoteId===note.id){clearNoteDraft();captureCurrent();}renderNotes();},'Delete note'));row.append(edit,remove);box.append(row);}
+  return box;
+ }
+ function renderNotes(){
+  renderNoteContext();const search=$('noteSearch').value.toLowerCase(),filter=$('noteFilter').value,notes=payload().notes.filter(n=>(!filter||n.demo===filter)&&[n.reason,n.observation,n.tester,n.conditions,n.intent,n.demo,D.PARAM_BY_KEY[n.parameter].label].join(' ').toLowerCase().includes(search));
+  const host=$('notesList');host.replaceChildren();if(!notes.length)host.append(el('div',payload().notes.length?'No notes match your search. Try another word or demo.':'No notes yet. On Play & compare, change one setting, play the same moves, then click Write a note about this.','empty'));else for(const note of notes.slice().reverse())host.append(noteCard(note));
+  $('noteCounter').textContent=payload().notes.length+' note'+(payload().notes.length===1?'':'s');
+ }
+ $('noteSearch').addEventListener('input',renderNotes);$('noteFilter').addEventListener('change',renderNotes);
+ function csvCell(value){let text=String(value==null?'':value);if(/^[\u0000-\u0020]*[=+\-@]/.test(text)||/^[\t\r\n]/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"';}
+ function exportNotes(){
+  const rows=[['Captured at','Demonstration','Parameter','A value','B value','Unit','Preferred','Tester','Conditions','Intended experience','Observation','Reason','A settings JSON','B settings JSON']];
+  for(const n of payload().notes){const m=D.PARAM_BY_KEY[n.parameter];rows.push([n.createdAt,n.demo,m.label,n.aSettings[n.parameter],n.bSettings[n.parameter],m.unit,n.preferred,n.tester,n.conditions,n.intent,n.observation,n.reason,JSON.stringify(n.aSettings),JSON.stringify(n.bSettings)]);}
+  download('\uFEFF'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),filename('comparison_notes','csv'),'text/csv;charset=utf-8');toast('Your notes are downloading as a CSV file. You can open it in a spreadsheet app.');
+ }
+ $('exportNotes').addEventListener('click',exportNotes);
+ function exportParameters(){
+  if(!currentUIValid())return;
+  const ref={format:'avalon.game-feel-parameters',schemaVersion:1,exportedAt:new Date().toISOString(),referenceOnly:true,projectId:state.project.id,projectName:state.project.name,gameVersion:state.project.gameVersion,settingsA:D.clone(payload().settings),settingsB:bSettings(),comparison:D.clone(payload().comparison),units:Object.fromEntries(D.PARAMS.map(m=>[m.key,m.unit])),assumptions:C.methods,engineMapping:payload().mappingNotes};
+  download(JSON.stringify(ref,null,2),filename('parameter_reference','json'),'application/json');toast('Settings list downloaded. It is only for reading. To open your work again, use your project file.');
+ }
+ $('exportParameters').addEventListener('click',exportParameters);
+ function buildBrief(){
+  const lines=['AVALON PARTNER / CAPTAIN AMADO','GAME FEEL IMPLEMENTATION BRIEF','Generated: '+new Date().toISOString(),'App version: 1.0','', 'PROJECT'];
+  for(const [key,value] of Object.entries(state.project))lines.push(key+': '+(Array.isArray(value)?value.join(', ')||'Not specified':value===null||value===''?'Not specified':String(value)));
+  lines.push('','INTENDED EXPERIENCE',payload().intent||'Not recorded.','','SETTINGS','B comparison: '+(payload().comparison.enabled?'enabled':'hidden')+'; selected setting: '+D.PARAM_BY_KEY[payload().comparison.parameter].label,'Parameter | A | B | Unit | Implementation note');
+  const bs=bSettings();for(const m of D.PARAMS)lines.push([m.label,payload().settings[m.key],bs[m.key],m.unit,C.controls[m.key].implementation].join(' | '));
+  lines.push('','SIMULATION ASSUMPTIONS',...C.methods.map((m,i)=>(i+1)+'. '+m),'','ENGINE MAPPING',payload().mappingNotes||'Not recorded.','Browser reference values are not an engine asset. No engine integration or in-engine testing is claimed.','','COMPARISON NOTES');
+  if(!payload().notes.length)lines.push('No observations recorded.');
+  for(const n of payload().notes){const m=D.PARAM_BY_KEY[n.parameter];lines.push('','Captured: '+n.createdAt,'Demo: '+n.demo,'Setting: '+m.label+' | A '+val(n.aSettings[n.parameter],m.unit)+' | B '+val(n.bSettings[n.parameter],m.unit),'Preferred: '+(n.preferred||'Not recorded'),'Tester: '+(n.tester||'Not recorded'),'Conditions: '+(n.conditions||'Not recorded'),'Intention: '+(n.intent||'Not recorded'),'Observation: '+(n.observation||'Not recorded'),'Reason: '+(n.reason||'Not recorded'),'Full A settings: '+JSON.stringify(n.aSettings),'Full B settings: '+JSON.stringify(n.bSettings));}
+  lines.push('','PRIMARY SOURCES','Original summaries. Documentation reviewed 2026-10-21. Presets and trigger values are authored design examples.');
+  for(const source of GFResearch.sources)lines.push(source.title+' | '+source.url+' | reviewed '+source.reviewedAt,source.summary);
+  lines.push('','ABOUT THIS VERSION',...GFVerification,'','PROJECT TRANSFER','Keep and move your latest full avalon.creator-project JSON manually. Unfamiliar modules travel as inert JSON. They are not automatically interpreted or synchronized. Browser storage and this HTML are not backups of each other.','','Copyright (c) 2026 Joshua Amado. Free and source available under the AmadOpenSource License 1.0. Use it for anything, including paid work; what you make with it is yours. The tool itself may not be sold or turned into a paid product. Original code and visuals; linked documentation retains its owners’ rights.');
+  return lines.join('\n');
+ }
+ function exportBrief(){if(!currentUIValid())return;download(buildBrief(),filename('implementation_brief','txt'),'text/plain;charset=utf-8');toast('Your text summary is downloading.');}
+ $('exportBrief').addEventListener('click',exportBrief);$('exportBrief2').addEventListener('click',exportBrief);
+ function renderReport(){
+  const project=state.project,data=payload(),bs=bSettings();$('reportName').textContent=project.name||'Untitled project';const meta=$('reportMeta');meta.replaceChildren();
+  for(const [label,text] of [['Platform / engine',[project.platform,project.engine].filter(Boolean).join(' / ')],['Genre / stage',[project.genre,project.stage].filter(Boolean).join(' / ')],['Game version',project.gameVersion],['Who it is for',project.targetAudience],['Devices',project.targetDevices.join(', ')],['Play session length',project.sessionLengthMinutes===null?'Not filled in':project.sessionLengthMinutes+' minutes'],['Design pillars',project.designPillars.join(' · ')],['Project ID (UUID)',project.id]]){const block=el('div');block.append(el('strong',label),el('span',text||'Not filled in'));meta.append(block);}
+  $('reportIntent').textContent=data.intent||'Not written yet.';$('reportComparison').textContent=data.comparison.enabled?'B changes one setting':'B hidden';$('tuningRows').replaceChildren();
+  for(const m of D.PARAMS){const row=el('tr');if(data.comparison.enabled&&m.key===data.comparison.parameter&&data.settings[m.key]!==bs[m.key])row.className='changed';row.append(el('td',m.label),el('td',val(data.settings[m.key])),el('td',data.comparison.enabled?val(bs[m.key]):'Hidden'),el('td',m.unit),el('td',C.controls[m.key].implementation));$('tuningRows').append(row);}
+  $('reportAssumptions').replaceChildren();const list=el('ul');for(const line of C.methods)list.append(el('li',line));$('reportAssumptions').append(list);$('mappingNotes').value=data.mappingNotes;$('reportMapping').textContent=data.mappingNotes||'No engine notes yet.';$('reportNotes').replaceChildren();
+  if(!data.notes.length)$('reportNotes').append(el('p','No notes yet. Add them on the Test notes page.','fine'));else for(const note of data.notes)$('reportNotes').append(noteCard(note,true));
+  $('reportSources').replaceChildren();for(const source of GFResearch.sources){const p=el('p',source.title+' · reviewed '+source.reviewedAt+' · '+source.url);$('reportSources').append(p);}
+ }
+ $('printReport').addEventListener('click',()=>{renderReport();stopAudio();window.print();});window.addEventListener('beforeprint',renderReport);
+ function renderSources(){
+  const search=$('sourceSearch').value.toLowerCase(),host=$('sourceList');host.replaceChildren();
+  for(const source of GFResearch.sources.filter(s=>(s.title+' '+s.summary+' '+s.application).toLowerCase().includes(search))){
+   const card=el('article',undefined,'source-card'),h=el('h4'),a=el('a',source.title);const url=new URL(source.url);if(url.protocol==='https:'||url.protocol==='http:'){a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';}h.append(a);card.append(h,el('small','Checked '+source.reviewedAt+' · Official guide'),el('p',source.summary),el('p','How this tool uses it: '+source.application));host.append(card);
+  }
+  if(!host.children.length)host.append(el('div','No sources match. Try another word.','empty'));
+ }
+ $('sourceSearch').addEventListener('input',renderSources);
+ function renderDocumentation(){
+  $('methodText').replaceChildren();for(const text of C.methods)$('methodText').append(el('p',text,'fine'));
+  $('schemaDocs').replaceChildren();for(const text of C.schema)$('schemaDocs').append(el('p',text,'fine'));
+  const example={format:'avalon.creator-project',schemaVersion:1,project:{id:'UUID generated once and retained',name:'',platform:'',engine:'',genre:'',targetAudience:'',targetDevices:[],stage:'',gameVersion:'',designPillars:[],sessionLengthMinutes:null},tools:{game_feel:{moduleVersion:1,updatedAt:'Actual ISO 8601 timestamp',payload:{settings:'All 19 bounded settings',comparison:{enabled:true,parameter:'acceleration',value:2800},activeDemo:'movement',intent:'',mappingNotes:'',exerciseStep:0,accessibility:{reducedMotion:false,mute:true,volume:.25},notes:[]}}}};
+  $('schemaDocs').append(el('pre',JSON.stringify(example,null,2),'schema'));
+  $('schemaDocs').append(el('p','Each note contains id (UUID), createdAt (ISO 8601), demo, parameter, full aSettings and bSettings, preferred (blank, A, B, or No preference), reason, observation, tester, conditions, and intent. A and B may differ only in the recorded parameter. Blank observations remain blank. Maximum 200 notes.','fine'));
+  $('schemaDocs').append(el('p','General import limits: 2 MiB UTF-8, 32 nesting levels, 100,000 values, 16,000 characters per generic string, 120 characters per property name, 5,000 array entries, and 50 modules. Unsafe property names (__proto__, prototype, constructor) are refused throughout. Own notes and profile fields have tighter typed limits. Foreign payloads are checked only for JSON safety and their generic module wrapper.','fine'));
+  $('schemaDocs').append(el('p','Own payload version 1 has a strict schema. Unsupported own versions and root schema versions are refused without replacing the workspace. An absent own module is initialized only after replacement is accepted. Parameter-reference exports and notes CSV have no importer. CSV quotes every cell and prefixes formula-like text with an apostrophe; full JSON retains the original strings.','fine'));
+  const log=el('ul');for(const text of GFVerification)log.append(el('li',text));$('verificationLog').replaceChildren(log);
+  renderSources();
+ }
+ function renderAll(){renderIdentity();renderProfile();renderWorkshop();renderNotes();renderReport();renderDocumentation();}
+ function restore(){
+  try{
+   const raw=localStorage.getItem(STORE);
+   if(raw){
+    try{const candidate=D.parseSnapshot(raw);if(!candidate.tools.game_feel)throw new Error('The saved work has no Game Feel data. Open its project file to see a preview.');state=candidate;lastExport=JSON.stringify(state);announceSave('Opened your saved work','Your work was opened from this browser. It can still get erased. Click Save project file to keep a copy on your computer.');}
+    catch(error){storageProtected=true;recoveryRaw=raw;announceSave('Old browser save kept safe','Your earlier browser save could not be opened: '+error.message+' It was kept as is.',true);const btn=el('button','Download the old browser save','btn small');btn.id='downloadRecovery';btn.addEventListener('click',()=>download(recoveryRaw,'Avalon_Game_Feel_recovery_unvalidated.json','application/json'));$('retrySave').after(btn);}
+   }else{state.tools.game_feel.payload.accessibility.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;lastExport=JSON.stringify(state);saveBrowser();}
+  }catch(error){state.tools.game_feel.payload.accessibility.reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;lastExport=JSON.stringify(state);announceSave('Cannot use browser saving','This browser would not let the tool save: '+error.message+' Use Save project file and Open project file to keep your work.',true);}
+ }
+ function hasPendingFieldEdit(){
+  for(const f of document.querySelectorAll('input:not([type=file]),select,textarea'))if(!f.checkValidity())return true;
+  for(const m of D.PARAMS){const field=$('param-'+m.key);if(field&&(m.options?field.value!==payload().settings[m.key]:Number(field.value)!==payload().settings[m.key]))return true;}
+  const compare=$('compareValue'),m=D.PARAM_BY_KEY[payload().comparison.parameter];return !!compare&&(m.options?compare.value!==payload().comparison.value:Number(compare.value)!==payload().comparison.value);
+ }
+ window.addEventListener('beforeunload',e=>{if(noteDraftDirty||hasPendingFieldEdit()||lastExport!==JSON.stringify(state)){e.preventDefault();e.returnValue='';}});
+ buildProfile();buildDemoTabs();restore();renderAll();resetSimulation();setPage('start');requestAnimationFrame(frame);
+ window.GFApp=Object.freeze({getSnapshot:()=>D.clone(state),getSimulation:()=>({A:D.clone(simA),B:D.clone(simB),trial:trial?D.clone(trial):null,paused}),getPage:()=>page});
+})();
+
+</script>
+</body>
+</html>
